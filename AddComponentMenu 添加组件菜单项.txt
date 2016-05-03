@@ -1,0 +1,32 @@
+AddComponentMenu 添加组件菜单项 
+
+Posted on 2013年07月22日 by U3d / Unity3D脚本/插件 /被围观 20 次 
+
+在编辑器添加一个用于添加组件的菜单项，将拥有该属性的脚本添加到选中的物体上。（用法：[AddComponentMenu(“Duan/Script_Mobile/BreakAndEnd”)]）
+
+例：在当前脚本中加入AddComponentMenu属性，选中某物体后，将拥有该属性的脚本添加到选中的物体上。
+  	 	
+01	    using UnityEngine;  
+02	    using System.Collections;  
+03	 
+04	    /// <summary>  
+05	    /// 按返回退出应用    
+06	    /// </summary>  
+07	    [AddComponentMenu("Duan/Script_Mobile/BreakAndEnd")]  
+08	    public class BreakAndEnd : MonoBehaviour {  
+09	 
+10	        // Update is called once per frame  
+11	        void Update () {  
+12	            endGame();  
+13	        }  
+14	         //Unity3D教程手册：www.unitymanual.com
+15	        void endGame(){  
+16	            if ( Application.platform == RuntimePlatform.Android &&  
+17	                (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Home)) )   
+18	            {  
+19	                //Home键好像不一定能用。。默认就是把程序挂到后台，并不是退出。   
+20	                Application.Quit();     
+21	            }  
+22	        }  
+23	    }  
+

@@ -1,0 +1,223 @@
+Unity简单AI编写
+本帖最后由 admin 于 2013-7-10 12:53 编辑 
+开发环境
+Window7
+Unity3D 3.4.1
+MB525defy Android 2.2.1
+这次是一个简单的AI编写，没有仿照任何一个人的做法，羽化因为觉得很有趣在工作时心血来潮简单写的一个，平时也可以Demo演示用用，写的时间不长，但也将就能用，以后把这AI完善了再传上来分享，有什么好的AI书籍推荐都可以给羽化留言，喜欢的朋友可以拿去看看，虽然写得很简陋，不接受嘲讽-0-
+
+本次学习：
+1. Unity简单AI编写
+2. Unity学习过程中的一些细节分析
+
+1. Unity简单AI编写
+由于这次介绍的AI很简单，羽化就把代码直接贴上，AI分成四个状态：思考，转身，移动，攻击，有经验的人认为羽化这样写得不对，由于这里只是初步实现，所以羽化想实现简单点的操作，就像自动范围内随机移动，锁敌攻击，超出距离复位，近距离察觉等，这里代码送上。这次没有写Android的控制器，但肯定可以在Android下用的-0-
+Enemy_AI.js
+[C#] 纯文本查看 复制代码
+private var Regression : Vector3;
+public var Player_Prefab : Transform;
+public var Enemy_State : String;
+public var Doing : boolean = true;
+public var Range : float = 4.0;
+public var Bullet : Transform;
+public var Bullet_Prefab : Transform;
+//初始化敌人方向和位置
+function Start()
+{
+transform.localEulerAngles.y = Random.value * 360;
+Regression = transform.position;
+}
+//敌人行动模式
+public var Thinking : boolean = true;
+public var Thinking_Time : float = 1.0;
+private var relativePos : Vector3;
+private var rotation : Quaternion;
+public var Facing : boolean = false;
+public var Facing_Time : float = 2.0;
+public var Facing_Speed : float = 2.0;
+public var Moving : boolean = false;
+public var Moving_Speed : float = 0.5;
+public var Moving_Time : float = 4.0;
+public var Moving_Back : boolean = false;
+public var Attacking : boolean = false;
+private var Bullet_DO : boolean = true;
+public var Bullet_CD : float = 0.2;
+//随机移动方位
+private var R_Position : Vector3;
+function Update () 
+{
+if(Attacking)
+{
+Enemy_State = "Attacking";
+Facing = true;
+Moving = true;
+//Doing = true;
+Thinking = false;
+var dist2 = Vector3.Distance(Regression, transform.position);
+if(dist2 > 20)
+{
+relativePos = Regression - transform.position;
+rotation = Quaternion.LookRotation(relativePos);
+Attacking = false;
+Moving_Back = true;
+}
+}
+if(!Moving_Back)
+{
+var dist = Vector3.Distance(Player_Prefab.position, transform.position);
+if(dist > 100)
+{
+Attacking = false;
+return;
+}
+else if(dist < 5)
+{
+Attacking = true;
+}
+RayJudge();
+}
+transform.localEulerAngles.x = 0;
+transform.localEulerAngles.z = 0;
+if(Thinking && !Attacking && !Moving_Back)
+{
+Enemy_State = "Thinking";
+if(Doing)
+{
+StartCoroutine(Think(Thinking_Time));
+Doing = false;
+}
+}
+if(Facing)
+{
+Enemy_State = "Facing";
+if(Attacking)
+{
+relativePos = Player_Prefab.position - transform.position;
+rotation = Quaternion.LookRotation(relativePos);
+transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * Facing_Speed * 4);
+}
+else if(Moving_Back)
+{
+transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * Facing_Speed * 4);
+}
+else
+{
+transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * Facing_Speed);
+if(Doing)
+{
+StartCoroutine(Face(Facing_Time)); 
+Doing = false;
+}
+}
+}
+if(Moving)
+{
+Enemy_State = "Moving";
+if(Moving_Back)
+{
+transform.Translate(Vector3.forward * Time.deltaTime * Moving_Speed * 6);
+}
+else if(dist > 2)
+{
+if(Attacking)
+{
+transform.Translate(Vector3.forward * Time.deltaTime * Moving_Speed * 4);
+}
+else
+{
+transform.Translate(Vector3.forward * Time.deltaTime * Moving_Speed);
+}
+}
+if(Doing && !Attacking)
+{
+StartCoroutine(Move(Moving_Time));
+Doing = false;
+}
+}
+}
+//前方锁敌
+function RayJudge()
+{
+var layerMask = 1 << 2;
+layerMask = ~layerMask;
+var hit : RaycastHit;
+if(Physics.Raycast (transform.position, transform.TransformDirection(Vector3.forward), hit, 20,layerMask)) 
+{
+var distanceToForward = hit.distance;
+if(hit.transform.tag == "Player")
+{
+Attacking = true;
+if(Bullet_DO)
+{
+var Create = Instantiate (Bullet_Prefab, Bullet.position, Quaternion.identity);
+Create.rigidbody.AddForce (Bullet.forward * 1000);
+StartCoroutine(Wait(Bullet_CD)); 
+Bullet_DO = false;
+}
+}
+}
+}
+function Wait(waitTime : float)
+{
+yield WaitForSeconds (waitTime);
+Bullet_DO = true;
+}
+function Move(waitTime : float)
+{
+print("Move");
+if(Moving_Back)
+{
+yield WaitForSeconds (waitTime * 0.4); 
+}
+else
+{
+yield WaitForSeconds (waitTime + Random.value * 2); 
+}
+Thinking = true;
+Moving_Back = false;
+Moving = false;
+Facing = false;
+Doing = true;
+}
+function Face(waitTime : float)
+{
+print("Face");
+yield WaitForSeconds (waitTime + Random.value);
+Facing = false;
+Thinking = false;
+Moving = true;
+Doing = true;
+}
+function Think(waitTime : float)
+{
+print("Thinking");
+yield WaitForSeconds (waitTime + Random.value);
+R_Position = Regression + Random.insideUnitSphere * Range;
+R_Position.y = Regression.y;
+relativePos = R_Position - transform.position;
+rotation = Quaternion.LookRotation(relativePos);
+Thinking = false;
+Moving = false;
+Facing = true;
+Doing = true;
+}
+
+工程截图（这里是9个拿枪的敌人- - 蓝色为控制角色，WASD控制行动）
+
+ 
+
+
+还是那句话，代码本身并不难，羽化也是初学者写不出让人觉得高深的代码-0-，高手也许看一眼就知道这是一个简单的状态切换判断而已，羽化也是从原来Android游戏经验中提取出来的，因为原来都有个FrameWork，框架控制着整个游戏构成，于是就想像AI也能如此，这种敌人AI要有更多的随机性和针对性才能让人觉得真实吧，代码没什么优化，也许效率不是很好，以后估计要添加复杂地形寻路，技能释放，攻击站位判断等内容了，话说原来杨写的那AI真叫个凶残。。。
+2.Unity学习过程中的一些细节分析 
+这里只是说说一些可能遇到的问题，与大家分享下。
+1. 获取位置坐标：当你translate.position获取的不是物体在世界的坐标时可以试试translate. localRotation
+2. 改变旋转角度：这里多半是用translate.localRotation= Quaternion.Euler(x,y,z)；
+3. 如何更改鼠标指针图片，这也是羽化以后可能遇到的问题，这里只能简单分析下，首先把鼠标默认指针隐藏掉Screen.showCursor=flase；再用个粒子或者图片代替，具体位置可以用Camera.main.ScreenToWorldPoint()和Input.mousePosition获得。但有个问题就产生了，UI会遮挡鼠标，鼠标图片用UI代替总感觉不妥。。。所以羽化还没想出解决方法- -
+4. 有关过场Loading的制作，一张图片还好说，换个Scene或者写个UI都能解决，动态Loading的是用Application.LoadLevelAsync可以达到效果，或者是预加载，具体可以看看羽化无缝地图研究博文里面的一个别墅例子。
+5. 也许有一天你也会遇到脚本用C#编写时遇到一些莫名其妙的错误，所以这里羽化建议动态脚本命令最好用js写。。。
+
+作者：羽化 http://blog.csdn.net/libeifs/article/details/6820754
+本次工程下载地址 ：http://dl.dbank.com/c0ngaqgbzz
+
+
+
