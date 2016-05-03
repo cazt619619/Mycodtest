@@ -1,52 +1,52 @@
-///////bird fly ¹¤³Ì ½Å±¾//////////////////////////
+///////bird fly å·¥ç¨‹ è„šæœ¬//////////////////////////
 
-///////////////////////////gamemanage Æô¶¯ÉèÖÃ////////////////////
+///////////////////////////gamemanage å¯åŠ¨è®¾ç½®////////////////////
 using UnityEngine;
 using System.Collections;
 
 public class gamemanage : MonoBehaviour {
 
-    public Transform firstBg;¡¾Éè¶¨Ê×¿é±³¾°£¬Ò²¾ÍÊÇ¾µÍ·ÄÚ×îºóÒ»¿é±³¾°µÄ×ø±êÎ»ÖÃ¡¿
+    public Transform firstBg;ã€è®¾å®šé¦–å—èƒŒæ™¯ï¼Œä¹Ÿå°±æ˜¯é•œå¤´å†…æœ€åä¸€å—èƒŒæ™¯çš„åæ ‡ä½ç½®ã€‘
 
-    public int defen=0;¡¾Éè¶¨µÃ·ÖÀàĞÍ¡¿
+    public int defen=0;ã€è®¾å®šå¾—åˆ†ç±»å‹ã€‘
 
-    public static gamemanage _intance;¡¾Éè¶¨Ò»¸ö¾²Ì¬·½·¨¡¿
+    public static gamemanage _intance;ã€è®¾å®šä¸€ä¸ªé™æ€æ–¹æ³•ã€‘
 
-	¡¾Éè¶¨ÈıÖÖ×´Ì¬£¬ÓÃÓÚÅĞ¶¨ÓÎÏ·½ø³Ì¡¿
-    public static int star = 0;¡¾¿ªÊ¼×´Ì¬¡¿
-    public static int run = 1;¡¾ÔËĞĞ×´Ì¬¡¿
-    public static int stop = 2;¡¾Í£Ö¹×´Ì¬¡¿
+	ã€è®¾å®šä¸‰ç§çŠ¶æ€ï¼Œç”¨äºåˆ¤å®šæ¸¸æˆè¿›ç¨‹ã€‘
+    public static int star = 0;ã€å¼€å§‹çŠ¶æ€ã€‘
+    public static int run = 1;ã€è¿è¡ŒçŠ¶æ€ã€‘
+    public static int stop = 2;ã€åœæ­¢çŠ¶æ€ã€‘
 
-    public static int zhuantai = star;¡¾Éè¶¨Ò»¸ö¾²Ì¬×´Ì¬µÄ·½·¨£¬²¢½øĞĞ³õÊ¼»¯¡¿
+    public static int zhuantai = star;ã€è®¾å®šä¸€ä¸ªé™æ€çŠ¶æ€çš„æ–¹æ³•ï¼Œå¹¶è¿›è¡Œåˆå§‹åŒ–ã€‘
 
-    private GameObject bird;¡¾Éè¶¨Ò»¸öË½ÓĞ×Ö¶Î¡¿
+    private GameObject bird;ã€è®¾å®šä¸€ä¸ªç§æœ‰å­—æ®µã€‘
 
-	¡¾µ¥ÀıµÃÓÃ·¨¡¿
+	ã€å•ä¾‹å¾—ç”¨æ³•ã€‘
     void Awake() {
         _intance = this;
-        bird = GameObject.FindGameObjectWithTag("Player");¡¾½«´øÓĞPLAY±êÌâµÄÖ÷½Ç¸³Öµ¸øË½ÓĞ×Ö¶Î¡¿
+        bird = GameObject.FindGameObjectWithTag("Player");ã€å°†å¸¦æœ‰PLAYæ ‡é¢˜çš„ä¸»è§’èµ‹å€¼ç»™ç§æœ‰å­—æ®µã€‘
     }
 
     void Update() {
-        if (zhuantai==star)¡¾ÅĞ¶¨×´Ì¬ÔÚ¿ªÊ¼Ê±ºò¡¿
+        if (zhuantai==star)ã€åˆ¤å®šçŠ¶æ€åœ¨å¼€å§‹æ—¶å€™ã€‘
         {
-            if (Input.GetMouseButtonDown(0))¡¾µ±°´ÏÂÊó±ê×ó¼üµÃÊ±ºò¡¿
+            if (Input.GetMouseButtonDown(0))ã€å½“æŒ‰ä¸‹é¼ æ ‡å·¦é”®å¾—æ—¶å€™ã€‘
             {
-                zhuantai = run;¡¾ÇĞ»»³ÉÔËĞĞ×´Ì¬¡¿
+                zhuantai = run;ã€åˆ‡æ¢æˆè¿è¡ŒçŠ¶æ€ã€‘
 
-                bird.SendMessage("huodong");¡¾¹ã²¥Ò»¸öÏûÏ¢£¬Ö÷½Çµ±Ç°×´Ì¬¡¿
+                bird.SendMessage("huodong");ã€å¹¿æ’­ä¸€ä¸ªæ¶ˆæ¯ï¼Œä¸»è§’å½“å‰çŠ¶æ€ã€‘
             }
         }
 
-        if (zhuantai==stop)¡¾ÅĞ¶¨×´Ì¬ÔÚÍ£Ö¹Ê±ºò¡¿
+        if (zhuantai==stop)ã€åˆ¤å®šçŠ¶æ€åœ¨åœæ­¢æ—¶å€™ã€‘
         {
-            menu._instance.gameObject.SetActive(true);¡¾ÈÃ²Ëµ¥ÏÔÊ¾³öÀ´¡¿
+            menu._instance.gameObject.SetActive(true);ã€è®©èœå•æ˜¾ç¤ºå‡ºæ¥ã€‘
         }
     }
 }
-//////////////////////////////½áÊø/////////////////////////////////////////
+//////////////////////////////ç»“æŸ/////////////////////////////////////////
 
-////////////////////////////bird¡¾Ö÷½Ç½Å±¾¡¿///////////////////////////////////////////
+////////////////////////////birdã€ä¸»è§’è„šæœ¬ã€‘///////////////////////////////////////////
 
 using UnityEngine;
 using System.Collections;
@@ -54,11 +54,11 @@ using System.Collections;
 public class bird : MonoBehaviour
 {
 
-    public float timer = 0;¡¾Éè¶¨Ò»¸ö¼ÆÊıÆ÷¡¿
+    public float timer = 0;ã€è®¾å®šä¸€ä¸ªè®¡æ•°å™¨ã€‘
 
-    public int framenumber = 10;¡¾Éè¶¨Ò»¸ö·ÉĞĞËÙ¶È¡¿
+    public int framenumber = 10;ã€è®¾å®šä¸€ä¸ªé£è¡Œé€Ÿåº¦ã€‘
 
-    public int framecount = 0;¡¾Éè¶¨ÆôÊ¼¶¯»­Ö¡£¬0,1,2¡¿
+    public int framecount = 0;ã€è®¾å®šå¯å§‹åŠ¨ç”»å¸§ï¼Œ0,1,2ã€‘
 
 
 
@@ -72,80 +72,80 @@ public class bird : MonoBehaviour
     void Update()
     {
 
-        if (gamemanage.zhuantai == gamemanage.run)¡¾ÅĞ¶¨×´Ì¬ÊÇ·ñÔÚÔËĞĞÖĞ£¬¶¯»­Ğ§¹û£¬×Ô¶¯Á¬ĞøÑ­»·²¥·Å¡¿
+        if (gamemanage.zhuantai == gamemanage.run)ã€åˆ¤å®šçŠ¶æ€æ˜¯å¦åœ¨è¿è¡Œä¸­ï¼ŒåŠ¨ç”»æ•ˆæœï¼Œè‡ªåŠ¨è¿ç»­å¾ªç¯æ’­æ”¾ã€‘
         {
-            timer += Time.deltaTime;¡¾¼ÆÊıÆ÷°´Ö¡Êı×ÔÔö¡¿
+            timer += Time.deltaTime;ã€è®¡æ•°å™¨æŒ‰å¸§æ•°è‡ªå¢ã€‘
 
-            if (timer >= 1.0f / framenumber)¡¾µ±¼ÆÊıÆ÷Æô¶¯ºó¡¿
+            if (timer >= 1.0f / framenumber)ã€å½“è®¡æ•°å™¨å¯åŠ¨åã€‘
             {
-                framecount++;¡¾¶¯»­Ö¡Êı¿ªÊ¼×ÔÔö¡¿
+                framecount++;ã€åŠ¨ç”»å¸§æ•°å¼€å§‹è‡ªå¢ã€‘
 
-                timer -= 1.0f / framenumber;¡¾¼ÆÊıÆ÷¿ªÊ¼¹éÁã¡¿
+                timer -= 1.0f / framenumber;ã€è®¡æ•°å™¨å¼€å§‹å½’é›¶ã€‘
 
-                int frameindex = framecount % 3;¡¾ÉèÒ»¸öÕûÊıµÄ±äÁ¿£¬µÃµ½¶¯»­Ö¡µÃÖµ±»3ÇóÓàºóµÄÖµ£¬0,1,2¡¿
+                int frameindex = framecount % 3;ã€è®¾ä¸€ä¸ªæ•´æ•°çš„å˜é‡ï¼Œå¾—åˆ°åŠ¨ç”»å¸§å¾—å€¼è¢«3æ±‚ä½™åçš„å€¼ï¼Œ0,1,2ã€‘
 
-                this.GetComponent<MeshRenderer>().material.SetTextureOffset("_MainTex", new Vector2(0.333f * frameindex, 0));¡¾ÕâÊÇ5.0µÃĞ´·¨£¬geticomponet<×é¼şÃû×Ö>().²ÄÖÊ£¬ÌùÍ¼£¬(Ö÷ÌùÍ¼Ãû£¬2Î³×ø±ê£¬ÒÆ¶¯¾àÀë£¬)À´ÇĞ»»UNITYÖĞÖ÷½ÇÌùÍ¼µÄ±ä»»¡¿
+                this.GetComponent<MeshRenderer>().material.SetTextureOffset("_MainTex", new Vector2(0.333f * frameindex, 0));ã€è¿™æ˜¯5.0å¾—å†™æ³•ï¼Œgeticomponet<ç»„ä»¶åå­—>().æè´¨ï¼Œè´´å›¾ï¼Œ(ä¸»è´´å›¾åï¼Œ2çº¬åæ ‡ï¼Œç§»åŠ¨è·ç¦»ï¼Œ)æ¥åˆ‡æ¢UNITYä¸­ä¸»è§’è´´å›¾çš„å˜æ¢ã€‘
             }
         }
 
-        if (gamemanage.zhuantai == gamemanage.run)¡¾Èç¹û×´Ì¬ÔÚÔËĞĞÖĞ£¬·ÉĞĞĞ§¹û£¬°´Ò»ÏÂÊó±êÉÏÉıÒ»ÏÂ¡¿
+        if (gamemanage.zhuantai == gamemanage.run)ã€å¦‚æœçŠ¶æ€åœ¨è¿è¡Œä¸­ï¼Œé£è¡Œæ•ˆæœï¼ŒæŒ‰ä¸€ä¸‹é¼ æ ‡ä¸Šå‡ä¸€ä¸‹ã€‘
         {
-            if (Input.GetMouseButton(0))¡¾µ±°´ÏÂÊó±ê×ó¼üµÃÊ±ºò¡¿
+            if (Input.GetMouseButton(0))ã€å½“æŒ‰ä¸‹é¼ æ ‡å·¦é”®å¾—æ—¶å€™ã€‘
             {
-                Vector3 val = this.GetComponent<Rigidbody>().velocity;¡¾ÈıÎ¬ÏòÁ¿ÉêÃ÷Ò»¸ö±äÁ¿£¬¸³ÓèÖ÷½ÇÖ§ÏßÇ°½øµÄËÙ¶È¡¿
+                Vector3 val = this.GetComponent<Rigidbody>().velocity;ã€ä¸‰ç»´å‘é‡ç”³æ˜ä¸€ä¸ªå˜é‡ï¼Œèµ‹äºˆä¸»è§’æ”¯çº¿å‰è¿›çš„é€Ÿåº¦ã€‘
 
-                this.GetComponent<AudioSource>().Play();¡¾5.0µÃĞ´·¨£¬µ÷ÓÃÉùÒô×é½¨²¥·Å¡¿
+                this.GetComponent<AudioSource>().Play();ã€5.0å¾—å†™æ³•ï¼Œè°ƒç”¨å£°éŸ³ç»„å»ºæ’­æ”¾ã€‘
 
-                this.GetComponent<Rigidbody>().velocity = new Vector3(val.x, 5, val.z);¡¾5.0Ğ´·¨£¬ÖØĞÂ¸³Óè¸ÕÌåËÙ¶È£¬ÓÃÒ»¸öĞÂµÄÈıÎ¬ÏòÁ¿£¬½«ºáÏòËÙ¶È±äÎª×İÏòËÙ¶È£¬¿ØÖÆ½ÇÉ«µÄ¸ßµÍ¡¿
+                this.GetComponent<Rigidbody>().velocity = new Vector3(val.x, 5, val.z);ã€5.0å†™æ³•ï¼Œé‡æ–°èµ‹äºˆåˆšä½“é€Ÿåº¦ï¼Œç”¨ä¸€ä¸ªæ–°çš„ä¸‰ç»´å‘é‡ï¼Œå°†æ¨ªå‘é€Ÿåº¦å˜ä¸ºçºµå‘é€Ÿåº¦ï¼Œæ§åˆ¶è§’è‰²çš„é«˜ä½ã€‘
             }
         }
     }
 
-    public void huodong()¡¾¹«¹²·½·¨£¬Ö÷½Ç×´Ì¬£¬¿ªÊ¼Ê±Ê¹ÓÃ¡¿
+    public void huodong()ã€å…¬å…±æ–¹æ³•ï¼Œä¸»è§’çŠ¶æ€ï¼Œå¼€å§‹æ—¶ä½¿ç”¨ã€‘
     {
-        this.GetComponent<Rigidbody>().useGravity = true;¡¾Í¨¹ı¸ÕÌå£¬¿ªÆôÖØÁ¦¿ØÖÆ¡¿
+        this.GetComponent<Rigidbody>().useGravity = true;ã€é€šè¿‡åˆšä½“ï¼Œå¼€å¯é‡åŠ›æ§åˆ¶ã€‘
    
-        this.GetComponent<Rigidbody>().velocity = new Vector3(2, 0, 0);¡¾x·½ÏòÒÆ¶¯ËÙ¶È£¬¸ÕÌå¼ÓÉÏÁ¦¡¿
+        this.GetComponent<Rigidbody>().velocity = new Vector3(2, 0, 0);ã€xæ–¹å‘ç§»åŠ¨é€Ÿåº¦ï¼Œåˆšä½“åŠ ä¸ŠåŠ›ã€‘
 
     }
 }
-//////////////////////////////////////////////½áÊø//////////////////////////////////
+//////////////////////////////////////////////ç»“æŸ//////////////////////////////////
 
-////////////////////////////////////ÒÆ¶¯¼ì²â£¬»­Ãæ×Ô¶¯Ôö³¤////////////////////////////
+////////////////////////////////////ç§»åŠ¨æ£€æµ‹ï¼Œç”»é¢è‡ªåŠ¨å¢é•¿////////////////////////////
 using UnityEngine;
 using System.Collections;
 
 public class yidongjiance : MonoBehaviour
 {
     
-    public Transform currentBg;¡¾ÉêÃ÷Ò»¸öÒªÓÃµÄ±³¾°¡¿
+    public Transform currentBg;ã€ç”³æ˜ä¸€ä¸ªè¦ç”¨çš„èƒŒæ™¯ã€‘
 
-    public pipe pipe1;¡¾ÉêÃ÷Òª±ä»»µÄÖù×Ó¡¿
+    public pipe pipe1;ã€ç”³æ˜è¦å˜æ¢çš„æŸ±å­ã€‘
 
-    public pipe pipe2;¡¾ÉêÃ÷Òª±ä»»µÄÖù×Ó¡¿
+    public pipe pipe2;ã€ç”³æ˜è¦å˜æ¢çš„æŸ±å­ã€‘
 
-    public void OnTriggerEnter (Collider other)¡¾Åö×²¼ì²â±ê×¼¸ñÊ½£¬½øÈëÊ±´¥·¢¡¿
+    public void OnTriggerEnter (Collider other)ã€ç¢°æ’æ£€æµ‹æ ‡å‡†æ ¼å¼ï¼Œè¿›å…¥æ—¶è§¦å‘ã€‘
     {
 
-        print("22222");¡¾ÑéÖ¤ÊÇ·ñÅö×²£¬Êä³ö¼ì²â¡¿
+        print("22222");ã€éªŒè¯æ˜¯å¦ç¢°æ’ï¼Œè¾“å‡ºæ£€æµ‹ã€‘
 
-        if (other.tag == "Player")¡¾¼à²âÊÇ·ñÊÇÖ÷½Ç´¥·¢ÁËÅö×²¡¿
+        if (other.tag == "Player")ã€ç›‘æµ‹æ˜¯å¦æ˜¯ä¸»è§’è§¦å‘äº†ç¢°æ’ã€‘
         {
-            Transform firstbg = gamemanage._intance.firstBg;¡¾µÃµ½Ö®Ç°ÉèÖÃµÄµÚÒ»¸ö±³¾°µÄ×ø±êÖµ¡¿
+            Transform firstbg = gamemanage._intance.firstBg;ã€å¾—åˆ°ä¹‹å‰è®¾ç½®çš„ç¬¬ä¸€ä¸ªèƒŒæ™¯çš„åæ ‡å€¼ã€‘
 
-            currentBg.position = new Vector3(firstbg.position.x + 10, currentBg.position.y, currentBg.position.z);¡¾¸øµ±Ç°±³¾°¸³¸øÒ»¸öĞÂµÄ×ø±ê£¬¼´ÒÆ¶¯µ½×îºóÒ»¸ö±³¾°µÄºóÃæ¡¿
+            currentBg.position = new Vector3(firstbg.position.x + 10, currentBg.position.y, currentBg.position.z);ã€ç»™å½“å‰èƒŒæ™¯èµ‹ç»™ä¸€ä¸ªæ–°çš„åæ ‡ï¼Œå³ç§»åŠ¨åˆ°æœ€åä¸€ä¸ªèƒŒæ™¯çš„åé¢ã€‘
 
-            gamemanage._intance.firstBg = currentBg;¡¾½«ĞÂÒÆ¶¯µÄ»­ÃæÖØĞÂÉêÃ÷Îª×îºóÒ»¸ö»­Ãæ¡¿
+            gamemanage._intance.firstBg = currentBg;ã€å°†æ–°ç§»åŠ¨çš„ç”»é¢é‡æ–°ç”³æ˜ä¸ºæœ€åä¸€ä¸ªç”»é¢ã€‘
 
-            pipe1.random_Y();¡¾Öù×Óµ÷ÓÃPIPE·½·¨£¬Ëæ»ú½øĞĞ²¼ÖÃ¡¿
+            pipe1.random_Y();ã€æŸ±å­è°ƒç”¨PIPEæ–¹æ³•ï¼Œéšæœºè¿›è¡Œå¸ƒç½®ã€‘
 
-            pipe2.random_Y();¡¾Öù×Óµ÷ÓÃPIPE·½·¨£¬Ëæ»ú½øĞĞ²¼ÖÃ¡¿
+            pipe2.random_Y();ã€æŸ±å­è°ƒç”¨PIPEæ–¹æ³•ï¼Œéšæœºè¿›è¡Œå¸ƒç½®ã€‘
         }
     }
 }
-///////////////////////////////////////////////½áÊø//////////////////////////////////
+///////////////////////////////////////////////ç»“æŸ//////////////////////////////////
 
-/////////////////////////////////////pipeÖù×ÓµÄËæ»úÅÅÁĞ·½Ê½£¬µÃ·Ö¼à²â///////////////////////////
+/////////////////////////////////////pipeæŸ±å­çš„éšæœºæ’åˆ—æ–¹å¼ï¼Œå¾—åˆ†ç›‘æµ‹///////////////////////////
 using UnityEngine;
 using System.Collections;
 
@@ -155,207 +155,207 @@ public class pipe : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        random_Y();¡¾Ñ­»·µ÷ÓÃÒ»¸ö·½·¨¡¿
+        random_Y();ã€å¾ªç¯è°ƒç”¨ä¸€ä¸ªæ–¹æ³•ã€‘
     }
 
     
-    public void random_Y()¡¾ÉêÃ÷Ò»¸öĞÂµÄËæ»ú·½·¨¡¿
+    public void random_Y()ã€ç”³æ˜ä¸€ä¸ªæ–°çš„éšæœºæ–¹æ³•ã€‘
     {
-        float num = Random.Range(0.1f, -0.2f);¡¾Ëæ»úÊıÉú³É£¬ÖÖ×ÓÖµ£¨×îĞ¡Öµ£¬×î´óÖµ£©¡¿
+        float num = Random.Range(0.1f, -0.2f);ã€éšæœºæ•°ç”Ÿæˆï¼Œç§å­å€¼ï¼ˆæœ€å°å€¼ï¼Œæœ€å¤§å€¼ï¼‰ã€‘
 
-        this.transform.localPosition = new Vector3(this.transform.localPosition.x, num, this.transform.localPosition.z);¡¾ÖØÉè±¾Ìåµ±Ç°Î»ÖÃ£¬ÕâÀïÖ»ÊÇ±ä¶¯Y£¬¡¿
+        this.transform.localPosition = new Vector3(this.transform.localPosition.x, num, this.transform.localPosition.z);ã€é‡è®¾æœ¬ä½“å½“å‰ä½ç½®ï¼Œè¿™é‡Œåªæ˜¯å˜åŠ¨Yï¼Œã€‘
     }
 
-    void OnTriggerExit(Collider other) {¡¾Àë¿ªÊ±´¥·¢¡¿
+    void OnTriggerExit(Collider other) {ã€ç¦»å¼€æ—¶è§¦å‘ã€‘
         
-	if (other.tag=="Player")¡¾¼à²âÊÇ·ñÊÇÖ÷½Ç´¥·¢ÁËÅö×²¡¿
+	if (other.tag=="Player")ã€ç›‘æµ‹æ˜¯å¦æ˜¯ä¸»è§’è§¦å‘äº†ç¢°æ’ã€‘
         {
-            this.GetComponent<AudioSource>().Play();¡¾²¥·ÅÒ»¸öÉùÒô¡¿
+            this.GetComponent<AudioSource>().Play();ã€æ’­æ”¾ä¸€ä¸ªå£°éŸ³ã€‘
 
-            gamemanage._intance.defen++;¡¾¼Ç·ÖÆ÷¿ªÊ¼×ÔÔö¡¿
+            gamemanage._intance.defen++;ã€è®°åˆ†å™¨å¼€å§‹è‡ªå¢ã€‘
 
- 	    menu._instance.updatescore(gamemanage._intance.defen);¡¾µ¥Àı·½·¨µ÷ÓÃ£¬½«µÃ·ÖËÍµ½UIÖĞÈ¥¡¿
+ 	    menu._instance.updatescore(gamemanage._intance.defen);ã€å•ä¾‹æ–¹æ³•è°ƒç”¨ï¼Œå°†å¾—åˆ†é€åˆ°UIä¸­å»ã€‘
         }
     }
 
-    void OnGUI() {¡¾GUI·½·¨¡¿
+    void OnGUI() {ã€GUIæ–¹æ³•ã€‘
 
-        GUILayout.Label("µÃ·Ö" + gamemanage._intance.defen);¡¾Ä¬ÈÏÔÚ»­Ãæ×óÉÏ½Ç»­³öÒ»¸ö±êÇ©£¬ÏÔÊ¾µÃ·Ö¡¿
+        GUILayout.Label("å¾—åˆ†" + gamemanage._intance.defen);ã€é»˜è®¤åœ¨ç”»é¢å·¦ä¸Šè§’ç”»å‡ºä¸€ä¸ªæ ‡ç­¾ï¼Œæ˜¾ç¤ºå¾—åˆ†ã€‘
     }
 }
-///////////////////////////////////////////////////½áÊø///////////////////////////////////////////
+///////////////////////////////////////////////////ç»“æŸ///////////////////////////////////////////
 
-////////////////////////////////////////////////////¾µÍ·¸úËæÖ÷½ÇÒÆ¶¯/////////////////////////////////////////
+////////////////////////////////////////////////////é•œå¤´è·Ÿéšä¸»è§’ç§»åŠ¨/////////////////////////////////////////
 using UnityEngine;
 using System.Collections;
 
 public class fllowbird : MonoBehaviour {
     
-	private GameObject bird;¡¾Ë½ÓĞ¶ÔÏóÉùÃ÷£¬±äÁ¿bird¡¿
+	private GameObject bird;ã€ç§æœ‰å¯¹è±¡å£°æ˜ï¼Œå˜é‡birdã€‘
 
-   	private Transform zuobiao;¡¾Ë½ÓĞ×ø±êÉêÃ÷¡¿
+   	private Transform zuobiao;ã€ç§æœ‰åæ ‡ç”³æ˜ã€‘
 
 	// Use this for initialization
 	void Start () {
 
-        bird = GameObject.FindGameObjectWithTag("Player");¡¾Í¨¹ıPlayer±êÇ©½«±äÁ¿½øĞĞ¹ØÁª¡¿
+        bird = GameObject.FindGameObjectWithTag("Player");ã€é€šè¿‡Playeræ ‡ç­¾å°†å˜é‡è¿›è¡Œå…³è”ã€‘
 
-        zuobiao = bird.transform;¡¾Ö÷½ÇĞÎÌ¬Ò²¸³Öµ¸øË½ÓĞº¯Êı¡¿
+        zuobiao = bird.transform;ã€ä¸»è§’å½¢æ€ä¹Ÿèµ‹å€¼ç»™ç§æœ‰å‡½æ•°ã€‘
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        Vector3 birdpos = zuobiao.position;¡¾ÈıÎ¬ÏòÁ¿µÄ±äÁ¿±»Ö÷½Ç×ø±ê¸³Öµ¡¿
+        Vector3 birdpos = zuobiao.position;ã€ä¸‰ç»´å‘é‡çš„å˜é‡è¢«ä¸»è§’åæ ‡èµ‹å€¼ã€‘
 
-        float y = birdpos.y - 2.14f;¡¾Í¨¹ıÖ÷½ÇÒÆ¶¯µÄ¾àÀë£¬µÃµ½YÖáÒÆ¶¯µÄ¾àÀë·¶Î§¡¿
+        float y = birdpos.y - 2.14f;ã€é€šè¿‡ä¸»è§’ç§»åŠ¨çš„è·ç¦»ï¼Œå¾—åˆ°Yè½´ç§»åŠ¨çš„è·ç¦»èŒƒå›´ã€‘
 
-        if (y>1.22f)¡¾ÅĞ¶¨³¬¹ı±³¾°ÉÏÏŞµÄÊ±ºò£¬¾ÍÊ¹ÓÃÉÏÏŞ¡¿
+        if (y>1.22f)ã€åˆ¤å®šè¶…è¿‡èƒŒæ™¯ä¸Šé™çš„æ—¶å€™ï¼Œå°±ä½¿ç”¨ä¸Šé™ã€‘
         {
             y = 1.22f;
         }
 
-        if (y<-1.22f)¡¾ÅĞ¶¨³¬¹ı±³¾°ÏÂÏŞµÄÊ±ºò£¬¾ÍÊ¹ÓÃÏÂÏŞ¡¿
+        if (y<-1.22f)ã€åˆ¤å®šè¶…è¿‡èƒŒæ™¯ä¸‹é™çš„æ—¶å€™ï¼Œå°±ä½¿ç”¨ä¸‹é™ã€‘
         {
             y = -1.22f;
         }
 
-        this.transform.position = new Vector3(birdpos.x+6.65f,y,-9f);¡¾¸øµ±Ç°¾µÍ·¸³¸øÒ»¸öĞÂµÄ×ø±ê¡¿
+        this.transform.position = new Vector3(birdpos.x+6.65f,y,-9f);ã€ç»™å½“å‰é•œå¤´èµ‹ç»™ä¸€ä¸ªæ–°çš„åæ ‡ã€‘
 
 	}
 }
-////////////////////////////////////////////////////½áÊø////////////////////////////////////
+////////////////////////////////////////////////////ç»“æŸ////////////////////////////////////
 
-////////////////////////////////////////Ê§°ÜÅĞ¶¨///////////////////////////////
+////////////////////////////////////////å¤±è´¥åˆ¤å®š///////////////////////////////
 using UnityEngine;
 using System.Collections;
 
 public class birdstop : MonoBehaviour {
 
-    public AudioSource hit;¡¾ÉêÃ÷Åö×²ÉùÒô¡¿
+    public AudioSource hit;ã€ç”³æ˜ç¢°æ’å£°éŸ³ã€‘
 
-    public AudioSource die;¡¾ÉêÃ÷ËÀÍöÉùÒô¡¿
+    public AudioSource die;ã€ç”³æ˜æ­»äº¡å£°éŸ³ã€‘
 
-   void OnCollisionEnter(Collision other)¡¾Õâ¸öÊÇ¸ÕÌåÅö×²µÄ±ê×¼Ğ´·¨¡¿
+   void OnCollisionEnter(Collision other)ã€è¿™ä¸ªæ˜¯åˆšä½“ç¢°æ’çš„æ ‡å‡†å†™æ³•ã€‘
     {
         print("33333");
 
-        if (other.gameObject.tag=="Player")¡¾ÅĞ¶ÏÊÇ·ñÊÇÖ÷½Ç·¢ÉúµÄÅö×²¡¿
+        if (other.gameObject.tag=="Player")ã€åˆ¤æ–­æ˜¯å¦æ˜¯ä¸»è§’å‘ç”Ÿçš„ç¢°æ’ã€‘
         {
-            hit.Play();¡¾²¥·ÅÉùÒô¡¿
+            hit.Play();ã€æ’­æ”¾å£°éŸ³ã€‘
 
-            gamemanage.zhuantai = gamemanage.stop;¡¾µ±Ö÷½Ç·¢ÉúÅö×²ºó£¬¸Ä±äÓÎÏ·×´Ì¬À´Õ¹ÏÖÖ÷½ÇËÀÍö¡¿
+            gamemanage.zhuantai = gamemanage.stop;ã€å½“ä¸»è§’å‘ç”Ÿç¢°æ’åï¼Œæ”¹å˜æ¸¸æˆçŠ¶æ€æ¥å±•ç°ä¸»è§’æ­»äº¡ã€‘
 
-            die.Play();¡¾²¥·ÅÉùÒô¡¿
+            die.Play();ã€æ’­æ”¾å£°éŸ³ã€‘
         }
     }
 	
 }
-////////////////////////////////////////½áÊø////////////////////////////////
+////////////////////////////////////////ç»“æŸ////////////////////////////////
 
-//////////////////////////////////////²Ëµ¥///////////////////////////////
+//////////////////////////////////////èœå•///////////////////////////////
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;¡¾TEXT·½·¨µ÷ÓÃ¡¿
+using UnityEngine.UI;ã€TEXTæ–¹æ³•è°ƒç”¨ã€‘
 
 public class menu : MonoBehaviour {
-    public static menu _instance;¡¾ÉêÃ÷Ò»¸ö·½·¨¡¿
+    public static menu _instance;ã€ç”³æ˜ä¸€ä¸ªæ–¹æ³•ã€‘
 
-   public Text score;¡¾ÉêÃ÷Ò»¸öUI¡¿
+   public Text score;ã€ç”³æ˜ä¸€ä¸ªUIã€‘
 
-    public Text best;¡¾ÉêÃ÷ÁíÒ»¸öÏÔÊ¾UI¡¿
+    public Text best;ã€ç”³æ˜å¦ä¸€ä¸ªæ˜¾ç¤ºUIã€‘
 
     
-    void Awake() {¡¾µ¥Àı¡¿
+    void Awake() {ã€å•ä¾‹ã€‘
         _instance = this;
 
-        this.gameObject.SetActive(false);¡¾²»ÏÔÊ¾UI£¬menu¡¿
+        this.gameObject.SetActive(false);ã€ä¸æ˜¾ç¤ºUIï¼Œmenuã€‘
     }
 
-    public void updatescore(float newscore) {¡¾¼Ç·ÖÅÆ¸Ä±ä¡¿
+    public void updatescore(float newscore) {ã€è®°åˆ†ç‰Œæ”¹å˜ã€‘
 
-        float zuigao = PlayerPrefs.GetFloat("score",0);¡¾×î¸ß·ÖµÈÓÚµÃ·Ö¡¿
+        float zuigao = PlayerPrefs.GetFloat("score",0);ã€æœ€é«˜åˆ†ç­‰äºå¾—åˆ†ã€‘
 
-        if (newscore>zuigao)¡¾ĞÂ·ÖÊıÊÇ·ñ´óÓÚ×î¸ß·Ö¡¿
+        if (newscore>zuigao)ã€æ–°åˆ†æ•°æ˜¯å¦å¤§äºæœ€é«˜åˆ†ã€‘
         {
-            zuigao = newscore;¡¾×î¸ß·ÖÖØĞÂ¸³Öµ¡¿
+            zuigao = newscore;ã€æœ€é«˜åˆ†é‡æ–°èµ‹å€¼ã€‘
         }
 
-        PlayerPrefs.SetFloat("score",zuigao);¡¾¼ÇÂ¼×î¸ßµÃ·Ö¡¿
+        PlayerPrefs.SetFloat("score",zuigao);ã€è®°å½•æœ€é«˜å¾—åˆ†ã€‘
 
-        score.text = newscore.ToString();¡¾ÒÔ×Ö·û´®ĞÎÊ½Êä³ö¡¿
+        score.text = newscore.ToString();ã€ä»¥å­—ç¬¦ä¸²å½¢å¼è¾“å‡ºã€‘
 
-        best.text = zuigao.ToString();¡¾ÒÔ×Ö·û´®ĞÎÊ½Êä³ö¡¿
+        best.text = zuigao.ToString();ã€ä»¥å­—ç¬¦ä¸²å½¢å¼è¾“å‡ºã€‘
     }
 
-	public void onClick() {¡¾×¢²áÒ»¸öOnclick·½·¨£¬°ó¶¨µ½BUTTONµÃONclickÉÏ¡¿
+	public void onClick() {ã€æ³¨å†Œä¸€ä¸ªOnclickæ–¹æ³•ï¼Œç»‘å®šåˆ°BUTTONå¾—ONclickä¸Šã€‘
 
-	        Application.LoadLevel(0);¡¾ÖØÔØ0²ã³¡¾°¡¿
+	        Application.LoadLevel(0);ã€é‡è½½0å±‚åœºæ™¯ã€‘
 
-	        gamemanage.zhuantai = gamemanage.star;¡¾ÖØÉèÓÎÏ·×´Ì¬Îª¿ªÊ¼×´Ì¬¡¿
+	        gamemanage.zhuantai = gamemanage.star;ã€é‡è®¾æ¸¸æˆçŠ¶æ€ä¸ºå¼€å§‹çŠ¶æ€ã€‘
 	    }
 
 }
-///////////////////////////////////////////////½áÊø/////////////////////////
+///////////////////////////////////////////////ç»“æŸ/////////////////////////
 
 
 
 
-////////////////////////////TEST ·½¿éÏÂµÃÎÄ×Ö±ä»»£¬ÔÚCUBEÏÂ¼ÓÒ»¸ö3D text/////////////////////
+////////////////////////////TEST æ–¹å—ä¸‹å¾—æ–‡å­—å˜æ¢ï¼Œåœ¨CUBEä¸‹åŠ ä¸€ä¸ª3D text/////////////////////
 using UnityEngine;
 using System.Collections;
 
 public class xuanzhuan : MonoBehaviour {
 
-    public int num = 5;¡¾Ğı×ªËÙ¶È¡¿
-    public int num1 = 0;¡¾ÎÄ×Ö±äÁ¿¡¿
+    public int num = 5;ã€æ—‹è½¬é€Ÿåº¦ã€‘
+    public int num1 = 0;ã€æ–‡å­—å˜é‡ã€‘
 
 	void Update () {
-        transform.Rotate(new Vector3(0,num,0));¡¾·½¿éĞı×ª¡¿
+        transform.Rotate(new Vector3(0,num,0));ã€æ–¹å—æ—‹è½¬ã€‘
         num1++;
-        GameObject.Find("New Text").GetComponent<TextMesh>().text = num1.ToString();¡¾ÕÒµ½·½¿éÏÂµÃ3DtextÃû×Ö£¬È»ºóÔÙTEXTÖĞÊäÈë±äÁ¿£¬ĞèÒª×ª»»³É×Ö·û´®¡¿
+        GameObject.Find("New Text").GetComponent<TextMesh>().text = num1.ToString();ã€æ‰¾åˆ°æ–¹å—ä¸‹å¾—3Dtextåå­—ï¼Œç„¶åå†TEXTä¸­è¾“å…¥å˜é‡ï¼Œéœ€è¦è½¬æ¢æˆå­—ç¬¦ä¸²ã€‘
 	}
 }
 
-/////////////////////////////////test´ó×ªÅÌ/////////////
+/////////////////////////////////testå¤§è½¬ç›˜/////////////
 using UnityEngine;
 using System.Collections;
 
 public class star : MonoBehaviour
 {
-    public float speed = 0f;¡¾³õÊ¼ËÙ¶È¡¿
-    private int num = 1;¡¾Éè¶¨Ò»¸öÊı×Ö¿ª¹Ø¡¿
-    private float i = 0;¡¾»ºÂı¼õËÙµÄÖµ¡¿
+    public float speed = 0f;ã€åˆå§‹é€Ÿåº¦ã€‘
+    private int num = 1;ã€è®¾å®šä¸€ä¸ªæ•°å­—å¼€å…³ã€‘
+    private float i = 0;ã€ç¼“æ…¢å‡é€Ÿçš„å€¼ã€‘
    
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))¡¾µÚÒ»´Î°´ÏÂ¿Õ¸ñµÄÊ±ºò¡¿
+        if (Input.GetKeyDown(KeyCode.Space))ã€ç¬¬ä¸€æ¬¡æŒ‰ä¸‹ç©ºæ ¼çš„æ—¶å€™ã€‘
         {
-            num=2;¡¾¿ª¹ØÖØĞÂ¸³Öµ¡¿
+            num=2;ã€å¼€å…³é‡æ–°èµ‹å€¼ã€‘
         }
         
-        if (num % 2 == 0)¡¾ÅĞ¶¨¿ª¹ØÊÇ·ñ´ò¿ª£¬Í¬ÖµÇóÓàÊÇ·ñÎª0¡¿
+        if (num % 2 == 0)ã€åˆ¤å®šå¼€å…³æ˜¯å¦æ‰“å¼€ï¼ŒåŒå€¼æ±‚ä½™æ˜¯å¦ä¸º0ã€‘
         {
-            speed = Random.Range(10f, 20f); ¡¾ËÙ¶ÈÖµËæ»ú¸³Öµ£¬10-20Ö®¼ä¡¿
-            i = Random.Range(0.01f, 0.1f);¡¾¼õËÙÖµ¸³Öµ£¬0.01-0.1Ö®¼ä¡¿
+            speed = Random.Range(10f, 20f); ã€é€Ÿåº¦å€¼éšæœºèµ‹å€¼ï¼Œ10-20ä¹‹é—´ã€‘
+            i = Random.Range(0.01f, 0.1f);ã€å‡é€Ÿå€¼èµ‹å€¼ï¼Œ0.01-0.1ä¹‹é—´ã€‘
         }   
         
-        speed -= i;¡¾ËÙ¶È¿ªÊ¼¼õÉÙ¡¿
+        speed -= i;ã€é€Ÿåº¦å¼€å§‹å‡å°‘ã€‘
         print("i"+i);
-        if (speed<=0)¡¾µ±ËÙ¶ÈĞ¡ÓÚµÈÓÚ0µÄÊ±ºò£¬ËÙ¶ÈÖµ¹é0¡¿
+        if (speed<=0)ã€å½“é€Ÿåº¦å°äºç­‰äº0çš„æ—¶å€™ï¼Œé€Ÿåº¦å€¼å½’0ã€‘
         {
             speed = 0;
         }
 
-        this.transform.Rotate(new Vector3(0, speed, 0));¡¾ÎïÌå¿ªÊ¼°´ËÙ¶ÈÖµÔÚYÖáĞı×ª¡¿
-        num = 1;¡¾¿ª¹ØÖØÖÃ£¬µÈ´ıÔÚ°´Ò»´Î¡¿
+        this.transform.Rotate(new Vector3(0, speed, 0));ã€ç‰©ä½“å¼€å§‹æŒ‰é€Ÿåº¦å€¼åœ¨Yè½´æ—‹è½¬ã€‘
+        num = 1;ã€å¼€å…³é‡ç½®ï¼Œç­‰å¾…åœ¨æŒ‰ä¸€æ¬¡ã€‘
     }
 }
-//////////////////////////////////test  Ö÷½çÃæ////////////////////////////////
+//////////////////////////////////test  ä¸»ç•Œé¢////////////////////////////////
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;//ÓÃÓÚÇĞ»»³¡¾°
+using UnityEngine.SceneManagement;//ç”¨äºåˆ‡æ¢åœºæ™¯
 
 public class dian : MonoBehaviour {
 
@@ -364,158 +364,158 @@ public class dian : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-    this.GetComponent<Text>().enabled = false;//Òş²ØÎÄ×Ö
+    this.GetComponent<Text>().enabled = false;//éšè—æ–‡å­—
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (image.transform.position.z==90)//imageÒÆ¶¯µ½Î»ÖÃºó
+        if (image.transform.position.z==90)//imageç§»åŠ¨åˆ°ä½ç½®å
         {
             print(22222);
-            this.GetComponent<Text>().enabled = true;//ÏÔÊ¾ÎÄ×Ö
+            this.GetComponent<Text>().enabled = true;//æ˜¾ç¤ºæ–‡å­—
 
-            if (Input.GetMouseButtonDown(0))//°´ÏÂÊó±ê
+            if (Input.GetMouseButtonDown(0))//æŒ‰ä¸‹é¼ æ ‡
             {
-                SceneManager.LoadScene("bigpan");//ÇĞ»»Ö¸¶¨³¡¾°£¬ÔÚÉèÖÃÖĞ½«³¡¾°¶¼Ìí¼ÓÉÏ
+                SceneManager.LoadScene("bigpan");//åˆ‡æ¢æŒ‡å®šåœºæ™¯ï¼Œåœ¨è®¾ç½®ä¸­å°†åœºæ™¯éƒ½æ·»åŠ ä¸Š
             }
         }
 	}
 }
-////////////////////////////////camera Ì¹¿Ë´óÕ½£¬¾µÍ·¸úËæÖ÷½Ç////////////////////////////////////////
+////////////////////////////////camera å¦å…‹å¤§æˆ˜ï¼Œé•œå¤´è·Ÿéšä¸»è§’////////////////////////////////////////
 using UnityEngine;
 using System.Collections;
 
 public class camera : MonoBehaviour {
 
-    private GameObject tank;¡¾ÉêÃ÷Ò»¸öÄ¿±ê±äÁ¿¡¿
+    private GameObject tank;ã€ç”³æ˜ä¸€ä¸ªç›®æ ‡å˜é‡ã€‘
 
-    private Transform weizhi;¡¾ÉêÃ÷Ò»¸öÎ»ÖÃ±äÁ¿¡¿
+    private Transform weizhi;ã€ç”³æ˜ä¸€ä¸ªä½ç½®å˜é‡ã€‘
 
 	// Use this for initialization
 	void Start () {
-        tank = GameObject.FindGameObjectWithTag("Player");¡¾±äÁ¿²éÕÒtag½ĞPLAYERµÄÎïÌå¡¿
-        weizhi = tank.transform;¡¾µÃµ½Ä¿±êµÄÎ»ÖÃ¡¿
+        tank = GameObject.FindGameObjectWithTag("Player");ã€å˜é‡æŸ¥æ‰¾tagå«PLAYERçš„ç‰©ä½“ã€‘
+        weizhi = tank.transform;ã€å¾—åˆ°ç›®æ ‡çš„ä½ç½®ã€‘
 	}
 	
 	// Update is called once per frame
 	void Update () {
         
-        this.transform.position =new Vector3( weizhi.position.x+0.7f,33.2f,weizhi.position.z-31.4f);¡¾¸øµ±Ç°¾µÍ·¸³¸øÒ»¸öĞÂµÄ×ø±ê£¬Ä¿±ê×ø±êÖµ+Æ«ÒÆÁ¿¡¿
+        this.transform.position =new Vector3( weizhi.position.x+0.7f,33.2f,weizhi.position.z-31.4f);ã€ç»™å½“å‰é•œå¤´èµ‹ç»™ä¸€ä¸ªæ–°çš„åæ ‡ï¼Œç›®æ ‡åæ ‡å€¼+åç§»é‡ã€‘
         
 	}
 }
 
-///////////////////////////////zidan Ì¹¿Ë´óÕ½ ÅÚµ¯/////////////////////////////////////////////
+///////////////////////////////zidan å¦å…‹å¤§æˆ˜ ç‚®å¼¹/////////////////////////////////////////////
 
 using UnityEngine;
 using System.Collections;
 
 public class zidan : MonoBehaviour {
-    public GameObject baozhaxiaoguo;¡¾Ìí¼ÓÒ»¸ö±¬Õ¨Ğ§¹û¶ÔÏó¡¿
+    public GameObject baozhaxiaoguo;ã€æ·»åŠ ä¸€ä¸ªçˆ†ç‚¸æ•ˆæœå¯¹è±¡ã€‘
 
-    public AudioClip auido;¡¾Ìí¼ÓÒ»¸öÉùÒô¶ÔÏó¡¿
+    public AudioClip auido;ã€æ·»åŠ ä¸€ä¸ªå£°éŸ³å¯¹è±¡ã€‘
 
-    public void OnTriggerEnter(Collider other) ¡¾´´½¨Ò»¸öĞÂµÄÅö×²·½·¨¡¿
+    public void OnTriggerEnter(Collider other) ã€åˆ›å»ºä¸€ä¸ªæ–°çš„ç¢°æ’æ–¹æ³•ã€‘
 {
-        GameObject.Instantiate(baozhaxiaoguo, transform.position, transform.rotation);¡¾±¬Õ¨Ğ§¹û½øĞĞÊµÀı»¯£¬ÓÃµ±Ç°Î»ÖÃ¡¿
+        GameObject.Instantiate(baozhaxiaoguo, transform.position, transform.rotation);ã€çˆ†ç‚¸æ•ˆæœè¿›è¡Œå®ä¾‹åŒ–ï¼Œç”¨å½“å‰ä½ç½®ã€‘
 
-        GameObject.Destroy(this.gameObject);¡¾Ïú»Ùµ±Ç°¶ÔÏó¡¿
+        GameObject.Destroy(this.gameObject);ã€é”€æ¯å½“å‰å¯¹è±¡ã€‘
 
-        AudioSource.PlayClipAtPoint(auido,transform.position);¡¾²¥·ÅÉùÒôĞ§¹û£¬ÉùÒô¶ÔÏó£¬ÔÚµ±Ç°Î»ÖÃ¡¿
+        AudioSource.PlayClipAtPoint(auido,transform.position);ã€æ’­æ”¾å£°éŸ³æ•ˆæœï¼Œå£°éŸ³å¯¹è±¡ï¼Œåœ¨å½“å‰ä½ç½®ã€‘
 
-        if (other.tag=="Enemy"||other.tag=="Player")¡¾ÅĞ¶¨»÷ÖĞµÄÄ¿±êtagÀà±ğ¡¿
+        if (other.tag=="Enemy"||other.tag=="Player")ã€åˆ¤å®šå‡»ä¸­çš„ç›®æ ‡tagç±»åˆ«ã€‘
         {
-            other.SendMessage("shanghai");¡¾¹ã²¥Ò»¸öÉËº¦·½·¨¡¿
+            other.SendMessage("shanghai");ã€å¹¿æ’­ä¸€ä¸ªä¼¤å®³æ–¹æ³•ã€‘
         }
     }
 }
 
-//////////////////////////////////////attick Ì¹¿Ë´óÕ½  ¹¥»÷·½Ê½////////////////////////////////////////////
+//////////////////////////////////////attick å¦å…‹å¤§æˆ˜  æ”»å‡»æ–¹å¼////////////////////////////////////////////
 
 using UnityEngine;
 using System.Collections;
 
 public class attick : MonoBehaviour {
 
-    public GameObject paodan;¡¾Ìí¼ÓÒ»¸öÅÚµ¯ÎïÌå¡¿
+    public GameObject paodan;ã€æ·»åŠ ä¸€ä¸ªç‚®å¼¹ç‰©ä½“ã€‘
 
-    private Transform weizhi;¡¾ÉêÃ÷Ò»¸öÎ»ÖÃ¡¿
+    private Transform weizhi;ã€ç”³æ˜ä¸€ä¸ªä½ç½®ã€‘
 
-    public float shesu = 10;¡¾³õÊ¼»¯ÉäËÙ¡¿
+    public float shesu = 10;ã€åˆå§‹åŒ–å°„é€Ÿã€‘
 
-    public KeyCode kaihuo = KeyCode.Space;¡¾Éè¶¨¿ª»ğ¼üÎª¿Õ¸ñ¡¿
+    public KeyCode kaihuo = KeyCode.Space;ã€è®¾å®šå¼€ç«é”®ä¸ºç©ºæ ¼ã€‘
 
-    public AudioClip audio;¡¾Ìí¼ÓÒ»¸öÉùÒô¡¿
+    public AudioClip audio;ã€æ·»åŠ ä¸€ä¸ªå£°éŸ³ã€‘
 
 	// Use this for initialization
 	void Start () {
-        weizhi = transform.Find("paodan");¡¾Î»ÖÃµÃµ½ÅÚµ¯µÄ×ø±ê¡¿
+        weizhi = transform.Find("paodan");ã€ä½ç½®å¾—åˆ°ç‚®å¼¹çš„åæ ‡ã€‘
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(kaihuo))¡¾µ±°´ÏÂ¿Õ¸ñ¼üµÄÊ±ºò¡¿
+        if (Input.GetKeyDown(kaihuo))ã€å½“æŒ‰ä¸‹ç©ºæ ¼é”®çš„æ—¶å€™ã€‘
         {
-            AudioSource.PlayClipAtPoint(audio,transform.position);¡¾²¥·ÅÉùÒô¡¿
+            AudioSource.PlayClipAtPoint(audio,transform.position);ã€æ’­æ”¾å£°éŸ³ã€‘
 
-         GameObject go =   GameObject.Instantiate(paodan,weizhi.position,weizhi.rotation) as GameObject;¡¾ÉêÃ÷Ò»¸öĞÂµÄÎïÌå±äÁ¿£¬½«ÊµÀı»¯µÄÅÚµ¯Î»ÖÃ×ø±ê¸³ÓèËû¡¿
+         GameObject go =   GameObject.Instantiate(paodan,weizhi.position,weizhi.rotation) as GameObject;ã€ç”³æ˜ä¸€ä¸ªæ–°çš„ç‰©ä½“å˜é‡ï¼Œå°†å®ä¾‹åŒ–çš„ç‚®å¼¹ä½ç½®åæ ‡èµ‹äºˆä»–ã€‘
 
-         go.GetComponent<Rigidbody>().velocity = go.transform.forward * shesu;¡¾ÅÚµ¯¸ÕÌåµÄ·ÉĞĞ£¬Ïàµ±ÓÚÅÚµ¯Ö±Ïß·½ÏòXËÙ¶È¡¿
+         go.GetComponent<Rigidbody>().velocity = go.transform.forward * shesu;ã€ç‚®å¼¹åˆšä½“çš„é£è¡Œï¼Œç›¸å½“äºç‚®å¼¹ç›´çº¿æ–¹å‘Xé€Ÿåº¦ã€‘
         }
 	}
 }
 
-///////////////////////////////moveÌ¹¿Ë´óÕ½ Ö÷½ÇÒÆ¶¯ //////////////////////////////////////
+///////////////////////////////moveå¦å…‹å¤§æˆ˜ ä¸»è§’ç§»åŠ¨ //////////////////////////////////////
 
 using UnityEngine;
 using System.Collections;
 
 public class move : MonoBehaviour
 {
-    public float speed = 5;¡¾³õÊ¼ËÙ¶È¡¿
+    public float speed = 5;ã€åˆå§‹é€Ÿåº¦ã€‘
 
-    private Rigidbody gangti;¡¾Åö×²¸ÕÌå±äÁ¿¡¿
+    private Rigidbody gangti;ã€ç¢°æ’åˆšä½“å˜é‡ã€‘
 
-    public float xuanzhuan = 15;¡¾Ğı×ª½Ç¶ÈÖµ¡¿
+    public float xuanzhuan = 15;ã€æ—‹è½¬è§’åº¦å€¼ã€‘
 
-    public AudioClip moveaudio;¡¾ÒÆ¶¯ÉùÒô¡¿
+    public AudioClip moveaudio;ã€ç§»åŠ¨å£°éŸ³ã€‘
 
-    public AudioClip stopaudio;¡¾Í£Ö¹ÉùÒô¡¿
+    public AudioClip stopaudio;ã€åœæ­¢å£°éŸ³ã€‘
 
-    private AudioSource audio;¡¾ÉùÒô×é½¨±äÁ¿¡¿
+    private AudioSource audio;ã€å£°éŸ³ç»„å»ºå˜é‡ã€‘
 
     // Use this for initialization
     void Start()
     {
-        gangti = this.GetComponent<Rigidbody>();¡¾±äÁ¿¸³Öµ£¬µ±Ç°ÎïÌåµÄ¸ÕÌå×é¼ş¡¿
+        gangti = this.GetComponent<Rigidbody>();ã€å˜é‡èµ‹å€¼ï¼Œå½“å‰ç‰©ä½“çš„åˆšä½“ç»„ä»¶ã€‘
 
-        audio= this.GetComponent<AudioSource>();¡¾ÉùÒô×é¼ş¸³Öµ¡¿
+        audio= this.GetComponent<AudioSource>();ã€å£°éŸ³ç»„ä»¶èµ‹å€¼ã€‘
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        float v = Input.GetAxis("Vertical");¡¾±ê×¼Ğ´·¨£¬´¹Ö±ÒÆ¶¯£¬Ä¬ÈÏws¡¿
-        gangti.velocity = transform.forward * v * speed;¡¾ÒÆ¶¯ËÙ¶È¡¿
+        float v = Input.GetAxis("Vertical");ã€æ ‡å‡†å†™æ³•ï¼Œå‚ç›´ç§»åŠ¨ï¼Œé»˜è®¤wsã€‘
+        gangti.velocity = transform.forward * v * speed;ã€ç§»åŠ¨é€Ÿåº¦ã€‘
 
-        float h = Input.GetAxis("Horizontal");¡¾±ê×¼Ğ´·¨£¬Ë®Æ½ÒÆ¶¯£¬Ä¬ÈÏad¡¿
-        gangti.angularVelocity = transform.up * h * xuanzhuan;¡¾Ğı×ªËÙ¶È¡¿
+        float h = Input.GetAxis("Horizontal");ã€æ ‡å‡†å†™æ³•ï¼Œæ°´å¹³ç§»åŠ¨ï¼Œé»˜è®¤adã€‘
+        gangti.angularVelocity = transform.up * h * xuanzhuan;ã€æ—‹è½¬é€Ÿåº¦ã€‘
 
-        if (Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1)¡¾ÅĞ¶ÏWASDÊÇ·ñ°´ÏÂ¡¿
+        if (Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1)ã€åˆ¤æ–­WASDæ˜¯å¦æŒ‰ä¸‹ã€‘
         {
-            audio.clip = moveaudio;¡¾²¥·ÅÒÆ¶¯ÉùÒô¡¿
-            if (audio.isPlaying==false)¡¾ÅĞ¶ÏÉùÒô×é½¨¡¿
+            audio.clip = moveaudio;ã€æ’­æ”¾ç§»åŠ¨å£°éŸ³ã€‘
+            if (audio.isPlaying==false)ã€åˆ¤æ–­å£°éŸ³ç»„å»ºã€‘
             {
-                audio.Play();¡¾²¥·ÅµÈ´ıÉùÒô¡¿
+                audio.Play();ã€æ’­æ”¾ç­‰å¾…å£°éŸ³ã€‘
             }
          }
         else {
-            audio.clip = stopaudio;¡¾¡¿
-            if (audio.isPlaying == false)¡¾¡¿
+            audio.clip = stopaudio;ã€ã€‘
+            if (audio.isPlaying == false)ã€ã€‘
             {
-                audio.Play();¡¾¡¿
+                audio.Play();ã€ã€‘
             }
            
         }
@@ -523,63 +523,63 @@ public class move : MonoBehaviour
     }
 }
 
-//////////////////////////////////xiaoguoxiaohui Ì¹¿Ë´óÕ½ ±¬Õ¨Ğ§¹û///////////////////////////////////
+//////////////////////////////////xiaoguoxiaohui å¦å…‹å¤§æˆ˜ çˆ†ç‚¸æ•ˆæœ///////////////////////////////////
 using UnityEngine;
 using System.Collections;
 
 public class xiaoguoxiaohui : MonoBehaviour {
 
-    public float time;¡¾Éè¸öÖµ¡¿
+    public float time;ã€è®¾ä¸ªå€¼ã€‘
 
 	// Use this for initialization
 	void Start () {
-        Destroy(this.gameObject,time);¡¾Ïú»Ùµ±Ç°Ä¿±ê£¬¼°Ê±¼ä¡¿
+        Destroy(this.gameObject,time);ã€é”€æ¯å½“å‰ç›®æ ‡ï¼ŒåŠæ—¶é—´ã€‘
 	}
 }
 
-/////////////////////////////////life Ì¹¿Ë´óÕ½ ÉúÃüÖµ////////////////////////////////////
+/////////////////////////////////life å¦å…‹å¤§æˆ˜ ç”Ÿå‘½å€¼////////////////////////////////////
 
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;¡¾µ÷ÓÃUI¡¿
+using UnityEngine.UI;ã€è°ƒç”¨UIã€‘
 
 public class life : MonoBehaviour {
 
-    public int hp = 100;¡¾¸øÄ¿±ê¸³ÖµÑªÁ¿¡¿
+    public int hp = 100;ã€ç»™ç›®æ ‡èµ‹å€¼è¡€é‡ã€‘
 
-    public GameObject siwangdonghua;¡¾µ÷ÓÃÒ»¸öËÀÍö¶¯»­¡¿
+    public GameObject siwangdonghua;ã€è°ƒç”¨ä¸€ä¸ªæ­»äº¡åŠ¨ç”»ã€‘
 
-    public AudioClip audio;¡¾µ÷ÓÃÒ»¸öÉùÒô¡¿
+    public AudioClip audio;ã€è°ƒç”¨ä¸€ä¸ªå£°éŸ³ã€‘
 
-    public Slider xuetiao;¡¾µ÷ÓÃÒ»¸öUIÑªÌõ¡¿
+    public Slider xuetiao;ã€è°ƒç”¨ä¸€ä¸ªUIè¡€æ¡ã€‘
 
-    private int hptotal;¡¾UIÑªÌõ±äÁ¿¡¿
+    private int hptotal;ã€UIè¡€æ¡å˜é‡ã€‘
 
 	// Use this for initialization
 	void Start () {
-        hptotal = hp;¡¾¸³Öµ×ÜÑªÁ¿¡¿
+        hptotal = hp;ã€èµ‹å€¼æ€»è¡€é‡ã€‘
 	}
 
-    void shanghai()¡¾ÉËº¦·½·¨¡¿
+    void shanghai()ã€ä¼¤å®³æ–¹æ³•ã€‘
     {
-        hp -= Random.Range(10,20);¡¾HP¼õÉÙËæ»úÒ»¸ö10-20µÄÖµ¡¿
+        hp -= Random.Range(10,20);ã€HPå‡å°‘éšæœºä¸€ä¸ª10-20çš„å€¼ã€‘
 
-        xuetiao.value =(float) hp / hptotal;¡¾UIÑªÌõµÄÕ¹Ê¾£¬ÊÕµ½ÉËº¦ºóµÄHP³ıÒÔ×ÜÑªÁ¿µÄ±ÈÀıÖµ£¬0-1Ö®¼äµÄĞ¡Êı¡¿
+        xuetiao.value =(float) hp / hptotal;ã€UIè¡€æ¡çš„å±•ç¤ºï¼Œæ”¶åˆ°ä¼¤å®³åçš„HPé™¤ä»¥æ€»è¡€é‡çš„æ¯”ä¾‹å€¼ï¼Œ0-1ä¹‹é—´çš„å°æ•°ã€‘
 
-        if (hp<=0)¡¾ÑªÁ¿ÊÇ·ñÎª0¡¿
+        if (hp<=0)ã€è¡€é‡æ˜¯å¦ä¸º0ã€‘
         {
-            AudioSource.PlayClipAtPoint(audio,transform.position);¡¾²¥·¢ËÀÍöÉùÒô¡¿
+            AudioSource.PlayClipAtPoint(audio,transform.position);ã€æ’­å‘æ­»äº¡å£°éŸ³ã€‘
 
-            GameObject.Instantiate(siwangdonghua,transform.position + Vector3.up,transform.rotation);¡¾ÊµÀı»¯±¬Õ¨Ğ§¹û£¬Î»ÖÃÔÚµ±Ç°Ä¿±êµÄÉÏ·½¡¿
+            GameObject.Instantiate(siwangdonghua,transform.position + Vector3.up,transform.rotation);ã€å®ä¾‹åŒ–çˆ†ç‚¸æ•ˆæœï¼Œä½ç½®åœ¨å½“å‰ç›®æ ‡çš„ä¸Šæ–¹ã€‘
 
-            this.gameObject.SetActive(false);¡¾Òş²Øµ±Ç°ÎïÌå¡¿
+            this.gameObject.SetActive(false);ã€éšè—å½“å‰ç‰©ä½“ã€‘
 
-            //GameObject.Destroy(this.gameObject);¡¾Ïú»Ùµ±Ç°ÎïÌå£¬Èç¹ûÏú»Ù¾µÍ·Î»ÖÃ²ÎÊıÎª¿Õ£¬»á±¨´í¡¿
+            //GameObject.Destroy(this.gameObject);ã€é”€æ¯å½“å‰ç‰©ä½“ï¼Œå¦‚æœé”€æ¯é•œå¤´ä½ç½®å‚æ•°ä¸ºç©ºï¼Œä¼šæŠ¥é”™ã€‘
         }
     }
 }
 
-/////////////////////////////////////////gamemaage Ê°»ÄÕß¿ØÖÆÌ¨///////////////////////////////////////////////
+/////////////////////////////////////////gamemaage æ‹¾è’è€…æ§åˆ¶å°///////////////////////////////////////////////
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -589,27 +589,27 @@ public class gamemanage : MonoBehaviour
 {
 
 
-    public int leave = 1;¡¾µØÍ¼µÈ¼¶¡¿
+    public int leave = 1;ã€åœ°å›¾ç­‰çº§ã€‘
 
-    public int food = 100;¡¾Ä¬ÈÏÊ³ÎïÊı¡¿
+    public int food = 100;ã€é»˜è®¤é£Ÿç‰©æ•°ã€‘
 
-    public List<enemy> enemylist;¡¾µĞÈË´æ·ÅÁĞ±í¡¿
+    public List<enemy> enemylist;ã€æ•Œäººå­˜æ”¾åˆ—è¡¨ã€‘
 
-    private static gamemanage _instance;¡¾µ¥ÀıÊµÏÖ¡¿
+    private static gamemanage _instance;ã€å•ä¾‹å®ç°ã€‘
 
-    private bool sleepstep = true;¡¾ÒÆ¶¯¿ª¹Ø¡¿
+    private bool sleepstep = true;ã€ç§»åŠ¨å¼€å…³ã€‘
 
-    private Text foodtext;¡¾Ê³ÎïÎÄ×Ö¡¿
+    private Text foodtext;ã€é£Ÿç‰©æ–‡å­—ã€‘
 
-    private Text overtext;¡¾ÏûºÄÎÄ×Ö¡¿
+    private Text overtext;ã€æ¶ˆè€—æ–‡å­—ã€‘
 
-    private Image dayimage;¡¾±³¾°Í¼¡¿
+    private Image dayimage;ã€èƒŒæ™¯å›¾ã€‘
 
-    private Text daytext;¡¾¹Ø¿¨ÎÄ×Ö¡¿
+    private Text daytext;ã€å…³å¡æ–‡å­—ã€‘
 
-    private mapmanage mapcushihua;¡¾µØÍ¼³õÊ¼»¯Àà¡¿
+    private mapmanage mapcushihua;ã€åœ°å›¾åˆå§‹åŒ–ç±»ã€‘
 
-    public static gamemanage Instance¡¾µ¥ÀıÊµÏÖ¡¿
+    public static gamemanage Instanceã€å•ä¾‹å®ç°ã€‘
     {
         get
         {
@@ -617,19 +617,19 @@ public class gamemanage : MonoBehaviour
         }
     }
 
-    void Awake()¡¾³õÊ¼·½·¨¡¿
+    void Awake()ã€åˆå§‹æ–¹æ³•ã€‘
     {
         _instance = this;
-        DontDestroyOnLoad(gameObject);¡¾ÖØÖÃµØÍ¼ºó±£Áô×ÔÉí²»Ïú»Ù£¬ÓÃÀ´±£ÁôÉÏÒ»³¡¾°µÄµÃ·Ö¡¿
-        cushihua();¡¾ËùÓĞÔªËØ½øĞĞ³õÊ¼»¯·½·¨¡¿
+        DontDestroyOnLoad(gameObject);ã€é‡ç½®åœ°å›¾åä¿ç•™è‡ªèº«ä¸é”€æ¯ï¼Œç”¨æ¥ä¿ç•™ä¸Šä¸€åœºæ™¯çš„å¾—åˆ†ã€‘
+        cushihua();ã€æ‰€æœ‰å…ƒç´ è¿›è¡Œåˆå§‹åŒ–æ–¹æ³•ã€‘
     }
 
-    void cushihua()¡¾³õÊ¼»¯·½·¨¡¿
+    void cushihua()ã€åˆå§‹åŒ–æ–¹æ³•ã€‘
     {
-        mapcushihua=GetComponent<mapmanage>();¡¾µÃµ½ĞÂĞ´µÄµØÍ¼Àà¡¿
-        mapcushihua.MapStar();¡¾µ÷ÓÃµØÍ¼ÀàÉú³É·½·¨¡¿
+        mapcushihua=GetComponent<mapmanage>();ã€å¾—åˆ°æ–°å†™çš„åœ°å›¾ç±»ã€‘
+        mapcushihua.MapStar();ã€è°ƒç”¨åœ°å›¾ç±»ç”Ÿæˆæ–¹æ³•ã€‘
 
-        foodtext = GameObject.Find("foodtext").GetComponent<Text>();¡¾ÎÄ×ÖÏÔÊ¾¡¿
+        foodtext = GameObject.Find("foodtext").GetComponent<Text>();ã€æ–‡å­—æ˜¾ç¤ºã€‘
         updatefoodtext(0);
         overtext=GameObject.Find("overtext").GetComponent<Text>();
         overtext.enabled = false;
@@ -638,19 +638,19 @@ public class gamemanage : MonoBehaviour
         
         daytext=GameObject.Find("daytext").GetComponent<Text>();
         daytext.text = "Day " + leave;
-       Invoke("Hidebk",1.0f);¡¾ÇëÇóÒ»¸ö·½·¨£¬1ÃëºóÖ´ĞĞ£¬±³¾°Í¼Æ¬ÏûÊ§¡¿
+       Invoke("Hidebk",1.0f);ã€è¯·æ±‚ä¸€ä¸ªæ–¹æ³•ï¼Œ1ç§’åæ‰§è¡Œï¼ŒèƒŒæ™¯å›¾ç‰‡æ¶ˆå¤±ã€‘
         
 
-        enemylist.Clear();¡¾Çå¿ÕµĞÈËÁĞ±í¡¿
+        enemylist.Clear();ã€æ¸…ç©ºæ•Œäººåˆ—è¡¨ã€‘
     }
 
-    void updatefoodtext(int foodnum) ¡¾ÉúÃü¼à²â·½·¨£¬ÏÔÊ¾Ê³ÎïÊı¡¿
+    void updatefoodtext(int foodnum) ã€ç”Ÿå‘½ç›‘æµ‹æ–¹æ³•ï¼Œæ˜¾ç¤ºé£Ÿç‰©æ•°ã€‘
 {
         if (foodnum == 0)
         {
-            foodtext.text = "Food : " + food;¡¾×ÜÊıµÄÏÔÊ¾¡¿
+            foodtext.text = "Food : " + food;ã€æ€»æ•°çš„æ˜¾ç¤ºã€‘
         }
-        else {¡¾µÃµ½ºÍÏûºÄÊ³ÎïÊıµÄÏÔÊ¾¡¿
+        else {ã€å¾—åˆ°å’Œæ¶ˆè€—é£Ÿç‰©æ•°çš„æ˜¾ç¤ºã€‘
             string str = "";
             if (foodnum < 0)
             {
@@ -664,55 +664,55 @@ public class gamemanage : MonoBehaviour
         
     }
 
-    public void jianshaoshiwu(int num)¡¾ÏûºÄÊ³ÎïµÄ·½·¨¡¿
+    public void jianshaoshiwu(int num)ã€æ¶ˆè€—é£Ÿç‰©çš„æ–¹æ³•ã€‘
     {
-        food -= num;¡¾×ÜÊı×Ô¼õ¡¿
-        updatefoodtext(-num);¡¾¼õÉÙµÄÊı£¬ÒÔ¸ºÊıĞÎÊ½´«µİµ½ÏÔÊ¾·½·¨Àï¡¿
+        food -= num;ã€æ€»æ•°è‡ªå‡ã€‘
+        updatefoodtext(-num);ã€å‡å°‘çš„æ•°ï¼Œä»¥è´Ÿæ•°å½¢å¼ä¼ é€’åˆ°æ˜¾ç¤ºæ–¹æ³•é‡Œã€‘
         if (food <=0)
         {
-            overtext.enabled = true;¡¾Îª0¾ÍÏÔÊ¾³ögame over¡¿
+            overtext.enabled = true;ã€ä¸º0å°±æ˜¾ç¤ºå‡ºgame overã€‘
         }
     }
 
-    public void zhenjiashiwu(int num)¡¾»ñÈ¡Ê³ÎïµÄ·½·¨¡¿
+    public void zhenjiashiwu(int num)ã€è·å–é£Ÿç‰©çš„æ–¹æ³•ã€‘
     {
-        food += num;¡¾×ÔÔö¡¿
-        updatefoodtext(num);¡¾Ôö¼ÓµÄÊı£¬ÒÔÕıÊıĞÎÊ½´«µİµ½ÏÔÊ¾·½·¨Àï¡¿
+        food += num;ã€è‡ªå¢ã€‘
+        updatefoodtext(num);ã€å¢åŠ çš„æ•°ï¼Œä»¥æ­£æ•°å½¢å¼ä¼ é€’åˆ°æ˜¾ç¤ºæ–¹æ³•é‡Œã€‘
     }
 
-    public void EnemyMove()¡¾µĞÈËÒÆ¶¯·½·¨¡¿
+    public void EnemyMove()ã€æ•Œäººç§»åŠ¨æ–¹æ³•ã€‘
     {
-        if (sleepstep == true)¡¾ÅĞ¶¨ÒÆ¶¯¿ª¹ØÊÇ·ñ´ò¿ª¡¿
+        if (sleepstep == true)ã€åˆ¤å®šç§»åŠ¨å¼€å…³æ˜¯å¦æ‰“å¼€ã€‘
         {
-            sleepstep = false;¡¾ÖØÉè¿ª¹Ø¡¿
+            sleepstep = false;ã€é‡è®¾å¼€å…³ã€‘
         }
         else
         {
-            foreach (var enemy in enemylist)¡¾Àú±éµĞÈËÁĞ±í£¬Ã¿Ò»¸öµĞÈË½øĞĞÒÆ¶¯¡¿
+            foreach (var enemy in enemylist)ã€å†éæ•Œäººåˆ—è¡¨ï¼Œæ¯ä¸€ä¸ªæ•Œäººè¿›è¡Œç§»åŠ¨ã€‘
             {
-                enemy.move();¡¾µĞÈËÀàÏÂµÄÒÆ¶¯·½·¨¡¿
+                enemy.move();ã€æ•Œäººç±»ä¸‹çš„ç§»åŠ¨æ–¹æ³•ã€‘
             }
-            sleepstep = true;¡¾ÖØÉè¿ª¹Ø¡¿
+            sleepstep = true;ã€é‡è®¾å¼€å…³ã€‘
         }
     }
-    public void NextLevel() ¡¾ÏÂÒ»¹ØÉú³É·½·¨¡¿
+    public void NextLevel() ã€ä¸‹ä¸€å…³ç”Ÿæˆæ–¹æ³•ã€‘
 {
-        Application.LoadLevel(0);¡¾ÖØÔØ³¡¾°¡¿
-        leave++;¡¾µÈ¼¶Êı×Ô¼Ó¡¿
-        OnLevelWasLoaded();¡¾¿ªÊ¼¶ÁÈ¡·½·¨¡¿
+        Application.LoadLevel(0);ã€é‡è½½åœºæ™¯ã€‘
+        leave++;ã€ç­‰çº§æ•°è‡ªåŠ ã€‘
+        OnLevelWasLoaded();ã€å¼€å§‹è¯»å–æ–¹æ³•ã€‘
     }
-    void OnLevelWasLoaded() ¡¾¿ªÊ¼¶ÁÈ¡·½·¨¡¿
+    void OnLevelWasLoaded() ã€å¼€å§‹è¯»å–æ–¹æ³•ã€‘
 {        
-        cushihua();¡¾µ÷ÓÃ³õÊ¼»¯·½·¨¡¿
+        cushihua();ã€è°ƒç”¨åˆå§‹åŒ–æ–¹æ³•ã€‘
     }
 
-    void Hidebk() ¡¾ÕÚµ²Í¼Æ¬ÏÔÊ¾·½·¨¡¿
+    void Hidebk() ã€é®æŒ¡å›¾ç‰‡æ˜¾ç¤ºæ–¹æ³•ã€‘
 {
-        dayimage.enabled=false;¡¾Í¼Æ¬Òş²Ø¡¿
-        daytext.enabled = false;¡¾ÎÄ×ÖÒş²Ø¡¿
+        dayimage.enabled=false;ã€å›¾ç‰‡éšè—ã€‘
+        daytext.enabled = false;ã€æ–‡å­—éšè—ã€‘
     }
 }
-//////////////////////////////////////////mapmange µØÍ¼Éú³É///////////////////////////////////////////////////
+//////////////////////////////////////////mapmange åœ°å›¾ç”Ÿæˆ///////////////////////////////////////////////////
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -720,120 +720,121 @@ using System.Collections.Generic;
 public class mapmanage : MonoBehaviour
 {
 
-    public GameObject[] liba;¡¾Î§±ßµÄÄ£ĞÍ×é¡¿
-    public GameObject[] di;¡¾µØ°åµÄÄ£ĞÍ×é¡¿
+    public GameObject[] liba;ã€å›´è¾¹çš„æ¨¡å‹ç»„ã€‘
+    public GameObject[] di;ã€åœ°æ¿çš„æ¨¡å‹ç»„ã€‘
     public GameObject[] qiang;
     public GameObject[] food;
     public GameObject[] enemy;
     public GameObject exit;
 
-    private int lie = 10;¡¾µØÍ¼µÄÁĞÊı 10¡¿
-    private int hang = 10;¡¾µØÍ¼µÄĞĞÊı 10¡¿
+    private int lie = 10;ã€åœ°å›¾çš„åˆ—æ•° 10ã€‘
+    private int hang = 10;ã€åœ°å›¾çš„è¡Œæ•° 10ã€‘
 
-    private Transform mapbao;¡¾µØÍ¼°ü´æ·ÅËùÓĞµÄÄ£ĞÍ¡¿
+    private Transform mapbao;ã€åœ°å›¾åŒ…å­˜æ”¾æ‰€æœ‰çš„æ¨¡å‹ã€‘
 
-    private List<Vector2> zuobiaobiao = new List<Vector2>();¡¾ÁĞ±í´æ·ÅÄÚÈ¦µÄµØÍ¼Æ½Ãæ×ø±ê¡¿
+    private List<Vector2> zuobiaobiao = new List<Vector2>();ã€åˆ—è¡¨å­˜æ”¾å†…åœˆçš„åœ°å›¾å¹³é¢åæ ‡ã€‘
 
-    private gamemanage gamemanage;¡¾µ÷ÓÃgamemanageÀà¡¿
+    private gamemanage gamemanage;ã€è°ƒç”¨gamemanageç±»ã€‘
    
-   public void MapStar()¡¾µØÍ¼Éú³É·½·¨¡¿
+   public void MapStar()ã€åœ°å›¾ç”Ÿæˆæ–¹æ³•ã€‘
     {
         gamemanage = this.GetComponent<gamemanage>();
-        mapbao = new GameObject("map").transform;//ĞÂ½¨Á¢Ò»¸öMAPµÄ¶ÔÏó×ø±ê£¬ÓÃÀ´´æ·ÅËùÓĞµØÍ¼Éú³ÉµÄÔªËØ
+        mapbao = new GameObject("map").transform;//æ–°å»ºç«‹ä¸€ä¸ªMAPçš„å¯¹è±¡åæ ‡ï¼Œç”¨æ¥å­˜æ”¾æ‰€æœ‰åœ°å›¾ç”Ÿæˆçš„å…ƒç´ 
         
-	//´´½¨µØÍ¼
-        for (int x = 0; x < lie; x++)¡¾ÁĞ1-10Öğ¸ö´´½¨¡¿
+	//åˆ›å»ºåœ°å›¾
+        for (int x = 0; x < lie; x++)ã€åˆ—1-10é€ä¸ªåˆ›å»ºã€‘
         {
-            for (int y = 0; y < hang; y++)¡¾´´½¨ĞĞ¡¿
+            for (int y = 0; y < hang; y++)ã€åˆ›å»ºè¡Œã€‘
             {
-                if (x == 0 || y == 0 || x == lie - 1 || y == hang - 1)¡¾×îÍâÎ§Ò»È¦¡¿
+                if (x == 0 || y == 0 || x == lie - 1 || y == hang - 1)ã€æœ€å¤–å›´ä¸€åœˆã€‘
                 {
-                    int num = Random.Range(0, liba.Length);¡¾Àé°ÊÊı×éµÄ³¤¶È£¬Ëæ»ú³éÈ¡Ò»¸öÊı¡¿
-                    GameObject go = GameObject.Instantiate(liba[num], new Vector3(x, y, 0), Quaternion.identity) as GameObject;¡¾ÊµÁĞ»¯Î§Ç½£¬ÔÚxy×ø±êµÄÎ»ÖÃ£¬×ÔÉí²»Ğı×ª¡¿
-                    go.transform.SetParent(mapbao);//ÉèÖÃ¸¸×ø±ê¡¾·ÅÈëµØÍ¼°ü¡¿
+                    int num = Random.Range(0, liba.Length);ã€ç¯±ç¬†æ•°ç»„çš„é•¿åº¦ï¼ŒéšæœºæŠ½å–ä¸€ä¸ªæ•°ã€‘
+                    GameObject go = GameObject.Instantiate(liba[num], new Vector3(x, y, 0), Quaternion.identity) as GameObject;ã€å®åˆ—åŒ–å›´å¢™ï¼Œåœ¨xyåæ ‡çš„ä½ç½®ï¼Œè‡ªèº«ä¸æ—‹è½¬ã€‘
+                    go.transform.SetParent(mapbao);//è®¾ç½®çˆ¶åæ ‡ã€æ”¾å…¥åœ°å›¾åŒ…ã€‘
                 }
                 else
                 {
-                    int num = Random.Range(0, di.Length);¡¾³éÈ¡µØ°åÊı¡¿
-                    GameObject go = GameObject.Instantiate(di[num], new Vector3(x, y, 0), Quaternion.identity) as GameObject;¡¾ÊµÀı»¯µØ°å¡¿
+                    int num = Random.Range(0, di.Length);ã€æŠ½å–åœ°æ¿æ•°ã€‘
+                    GameObject go = GameObject.Instantiate(di[num], new Vector3(x, y, 0), Quaternion.identity) as GameObject;ã€å®ä¾‹åŒ–åœ°æ¿ã€‘
                     go.transform.SetParent(mapbao);
                 }
             }
         }
 
-        //»ñµÃÄÚ³ÇÈ«²¿×ø±ê
-        zuobiaobiao.Clear();¡¾Çå³ş×ø±ê±í¡¿
-        for (int x = 2; x < lie - 2; x++)¡¾ÄÚÈ¦ÁĞ¡¿
+        //è·å¾—å†…åŸå…¨éƒ¨åæ ‡
+        zuobiaobiao.Clear();ã€æ¸…æ¥šåæ ‡è¡¨ã€‘
+        for (int x = 2; x < lie - 2; x++)ã€å†…åœˆåˆ—ã€‘
         {
-            for (int y = 2; y < hang - 2; y++)¡¾ÄÚÈ¦ĞĞ¡¿
+            for (int y = 2; y < hang - 2; y++)ã€å†…åœˆè¡Œã€‘
             {
-                zuobiaobiao.Add(new Vector2(x, y));¡¾½«ÄÚÈ¦×ø±ê·ÅÈë×ø±êÁĞ±í¡¿
+                zuobiaobiao.Add(new Vector2(x, y));ã€å°†å†…åœˆåæ ‡æ”¾å…¥åæ ‡åˆ—è¡¨ã€‘
             }
         }
 
-        //´´½¨ÕÏ°­
-        int jishu = gamemanage.leave;¡¾¼ÆÊıÆ÷£¬Ó¦ÓÃ¹Ø¿¨µÈ¼¶¡¿
-        if (jishu >=18)¡¾18¹ØÖ®ºó¡¿
+        //åˆ›å»ºéšœç¢
+        int jishu = gamemanage.leave;ã€è®¡æ•°å™¨ï¼Œåº”ç”¨å…³å¡ç­‰çº§ã€‘
+        if (jishu >=18)ã€18å…³ä¹‹åã€‘
         {
-            jishu = 18;¡¾¼ÆÊı¡¿
+            jishu = 18;ã€è®¡æ•°ã€‘
         }
-        int qiangnum = Random.Range(2, 8);¡¾Ç½µÄËæ»úÊı¡¿
-        ShenChengWuTi(qiangnum, qiang);¡¾Éú³ÉÎïÌå·½·¨£¬Êı×ÖºÍÊı×é¡¿
+        int qiangnum = Random.Range(2, 8);ã€å¢™çš„éšæœºæ•°ã€‘
+        
+        ShenChengWuTi(qiangnum, qiang);ã€ç”Ÿæˆç‰©ä½“æ–¹æ³•ï¼Œæ•°å­—å’Œæ•°ç»„ã€‘
 
-        //´´½¨Ê³Îï2-leave*2
+        //åˆ›å»ºé£Ÿç‰©2-leave*2
         int foodnum = Random.Range(1,jishu+1);
         ShenChengWuTi(foodnum, food);
 
-        //´´½¨µĞÈË
+        //åˆ›å»ºæ•Œäºº
         int enemynum = jishu;
         ShenChengWuTi(enemynum, enemy);
 
-        //´´½¨ÍË³öÇø
+        //åˆ›å»ºé€€å‡ºåŒº
        GameObject go1= GameObject.Instantiate(exit, new Vector2(lie - 2, hang - 2), Quaternion.identity)as GameObject;
-¡¾ÊµÀı»¯ÍË³öÇøÓò£¬ÔÚ8-8µØÇø¡¿
-       go1.transform.SetParent(mapbao);¡¾·ÅÈëµØÍ¼°ü¡¿
+ã€å®ä¾‹åŒ–é€€å‡ºåŒºåŸŸï¼Œåœ¨8-8åœ°åŒºã€‘
+       go1.transform.SetParent(mapbao);ã€æ”¾å…¥åœ°å›¾åŒ…ã€‘
     }
        
-    private Vector2 SuiJiZuoBiao() ¡¾ÄÚÈ¦Ëæ»ú×ø±êÉú³É·½·¨¡¿
+    private Vector2 SuiJiZuoBiao() ã€å†…åœˆéšæœºåæ ‡ç”Ÿæˆæ–¹æ³•ã€‘
     {
-        int listnum = Random.Range(0, zuobiaobiao.Count);¡¾Ëæ»ú×ø±êÖµ¡¿
+        int listnum = Random.Range(0, zuobiaobiao.Count);ã€éšæœºåæ ‡å€¼ã€‘
 
-        Vector2 pos = zuobiaobiao[listnum];¡¾´ÓÁĞ±íÖĞÈ¡³ö×ø±ê£¬ÉêÃ÷Ò»¸öPOS×ø±ê¸³Öµ¡¿
+        Vector2 pos = zuobiaobiao[listnum];ã€ä»åˆ—è¡¨ä¸­å–å‡ºåæ ‡ï¼Œç”³æ˜ä¸€ä¸ªPOSåæ ‡èµ‹å€¼ã€‘
 
-        zuobiaobiao.RemoveAt(listnum);¡¾ÔÚ×ø±ê±íÖĞÒÆ³ı³éÈ¡µÄ×ø±ê¡¿
+        zuobiaobiao.RemoveAt(listnum);ã€åœ¨åæ ‡è¡¨ä¸­ç§»é™¤æŠ½å–çš„åæ ‡ã€‘
 
-        return pos;¡¾·µ»ØÒ»¸ö×ø±êÖµ¡¿
+        return pos;ã€è¿”å›ä¸€ä¸ªåæ ‡å€¼ã€‘
     }
 
-    private void ShenChengWuTi(int num,GameObject[] temp)¡¾Éú³ÉÎïÌåµÄ·½·¨£¬ÊäÈëÊı×Ö£¬ÏîÄ¿Êı×é¡¿
+    private void ShenChengWuTi(int num,GameObject[] temp)ã€ç”Ÿæˆç‰©ä½“çš„æ–¹æ³•ï¼Œè¾“å…¥æ•°å­—ï¼Œé¡¹ç›®æ•°ç»„ã€‘
     {
-        for (int i = 0; i < num; i++)¡¾µÃµ½µÄÖµ£¬Ò»¸ö¸öÉú³É¡¿
+        for (int i = 0; i < num; i++)ã€å¾—åˆ°çš„å€¼ï¼Œä¸€ä¸ªä¸ªç”Ÿæˆã€‘
         {
-            Vector2 pos = SuiJiZuoBiao();¡¾×ø±ê¸³Öµ¡¿
+            Vector2 pos = SuiJiZuoBiao();ã€åæ ‡èµ‹å€¼ã€‘
 
-            int num2 = Random.Range(0, temp.Length);¡¾Ëæ»úÑ¡È¡ÄÇ¸öÎïÌå¡¿
+            int num2 = Random.Range(0, temp.Length);ã€éšæœºé€‰å–é‚£ä¸ªç‰©ä½“ã€‘
 
-            GameObject go = GameObject.Instantiate(temp[num2], pos, Quaternion.identity) as GameObject;¡¾ÊµÀı»¯¡¿
+            GameObject go = GameObject.Instantiate(temp[num2], pos, Quaternion.identity) as GameObject;ã€å®ä¾‹åŒ–ã€‘
 
-            go.transform.SetParent(mapbao);¡¾·ÅÈëµØÍ¼°ü¡¿
+            go.transform.SetParent(mapbao);ã€æ”¾å…¥åœ°å›¾åŒ…ã€‘
         }
     }
 }
 
-/////////////////////////////////enemy µĞÈËÉú³É/////////////////////////////////////////////////
+/////////////////////////////////enemy æ•Œäººç”Ÿæˆ/////////////////////////////////////////////////
 using UnityEngine;
 using System.Collections;
 
 public class enemy : MonoBehaviour
 {
-    private Vector2 cushiweizhi;¡¾³öÉúÎ»ÖÃ×ø±ê¡¿
-    private Transform player;¡¾Íæ¼ÒÎ»ÖÃ¡¿
-    private Rigidbody2D gangti;¡¾µÃµ½2D¸ÕÌå¡¿
-    public float smoothing = 3;¡¾Æ½»¬ÒÆ¶¯¡¿
+    private Vector2 cushiweizhi;ã€å‡ºç”Ÿä½ç½®åæ ‡ã€‘
+    private Transform player;ã€ç©å®¶ä½ç½®ã€‘
+    private Rigidbody2D gangti;ã€å¾—åˆ°2Dåˆšä½“ã€‘
+    public float smoothing = 3;ã€å¹³æ»‘ç§»åŠ¨ã€‘
 
-    public int gongjiqiangdu = 10;¡¾¹¥»÷ËÙ¶È¡¿
-    private BoxCollider2D penzhuang;¡¾µÃµ½2D Åö×²ºĞ¡¿
-    private Animator donghua;¡¾¶¯»­²¥·Å¡¿
+    public int gongjiqiangdu = 10;ã€æ”»å‡»é€Ÿåº¦ã€‘
+    private BoxCollider2D penzhuang;ã€å¾—åˆ°2D ç¢°æ’ç›’ã€‘
+    private Animator donghua;ã€åŠ¨ç”»æ’­æ”¾ã€‘
 
     void Start()
     {
@@ -842,26 +843,26 @@ public class enemy : MonoBehaviour
         gangti = GetComponent<Rigidbody2D>();
         penzhuang =GetComponent<BoxCollider2D>();
         donghua = GetComponent<Animator>();
-        gamemanage.Instance.enemylist.Add(this);¡¾½«µĞÈË·ÅÈë£¬gamemanageµÄµĞÈË±í¡¿
+        gamemanage.Instance.enemylist.Add(this);ã€å°†æ•Œäººæ”¾å…¥ï¼Œgamemanageçš„æ•Œäººè¡¨ã€‘
     }
 
     void Update()
     {
-        gangti.MovePosition(Vector2.Lerp(transform.position, cushiweizhi, smoothing * Time.deltaTime));¡¾ÒÆ¶¯·½Ê½¡¿
+        gangti.MovePosition(Vector2.Lerp(transform.position, cushiweizhi, smoothing * Time.deltaTime));ã€ç§»åŠ¨æ–¹å¼ã€‘
     }
 
-    public void move()¡¾ÒÆ¶¯·½·¨¡¿
+    public void move()ã€ç§»åŠ¨æ–¹æ³•ã€‘
     {
         Vector2 offset = player.position - transform.position;
         if (offset.magnitude < 1.1f)
         {
-            //¹¥»÷
+            //æ”»å‡»
             donghua.SetTrigger("gongji");
             player.SendMessage("diaoxue",gongjiqiangdu);
         }
         else 
         {
-            //¿ØÖÆÒÆ¶¯
+            //æ§åˆ¶ç§»åŠ¨
             float x = 0, y = 0;
             if (Mathf.Abs(offset.y) > Mathf.Abs(offset.x))
             {
@@ -902,7 +903,7 @@ public class enemy : MonoBehaviour
         }
     }
 }
-//////////////////////////////////////////////////////////////////////
+////////////////////////////////PLAY ç©å®¶æ§åˆ¶//////////////////////////////////////
 using UnityEngine;
 using System.Collections;
 
@@ -911,15 +912,15 @@ public class player : MonoBehaviour
     public float smoothing = 1;
     public float restime = 1;
     public float restimer = 0;
-    private Vector2 cushiweizhi = new Vector2(1, 1);
-    private Rigidbody2D yidong;
+    private Vector2 cushiweizhi = new Vector2(1, 1);ã€å‡ºèº«ä½ç½®ã€‘
+    private Rigidbody2D yidong;ã€ç§»åŠ¨åˆšä½“ã€‘
 
-    private BoxCollider2D pengzhang;
+    private BoxCollider2D pengzhang;ã€ç¢°æ’ç›’ã€‘
 
-    private Animator donghua;
+    private Animator donghua;ã€ä¸‰ç§çŠ¶æ€åŠ¨ç”»ã€‘
     // Use this for initialization
     void Start()
-    {
+    {ã€åˆå§‹åŒ–ã€‘
         yidong = GetComponent<Rigidbody2D>();
         pengzhang = GetComponent<BoxCollider2D>();
         donghua = GetComponent<Animator>();
@@ -928,11 +929,11 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        yidong.MovePosition(Vector2.Lerp(transform.position, cushiweizhi, smoothing * Time.deltaTime));
+        yidong.MovePosition(Vector2.Lerp(transform.position, cushiweizhi, smoothing * Time.deltaTime));ã€å¹³æ»‘ç§»åŠ¨ã€‘
        
-        if (gamemanage.Instance.food <= 0)
+        if (gamemanage.Instance.food <= 0)ã€é£Ÿç‰©æ˜¯å¦è¿˜æœ‰ã€‘
         {
-            return;
+            return;ã€è·³å‡ºã€‘
         }
 
 
@@ -942,8 +943,8 @@ public class player : MonoBehaviour
             return;
         }
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = Input.GetAxisRaw("Horizontal");ã€å¹³ç§»ã€‘
+        float v = Input.GetAxisRaw("Vertical");ã€ç«–ç§»ã€‘
 
         if (h > 0)
         {
@@ -1003,7 +1004,7 @@ public class player : MonoBehaviour
         donghua.SetTrigger("shougongji");
     }
 }
-////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////å¯ç ´åå¢™å£çš„è¡€é‡è®¾ç½®/////////////////////////////////////////////////////////
 
 using UnityEngine;
 using System.Collections;
@@ -1023,7 +1024,7 @@ public class qiang : MonoBehaviour
         }
     }
 }
-/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////é‡è½½å…³å¡////////////////////////////////////////////////////
 
 using UnityEngine;
 using System.Collections;
@@ -1040,7 +1041,7 @@ public class LOAD : MonoBehaviour {
     }
 	
 }
-//////////////////////////tigger ÀÏ»¢»ú³é½±//////////////////////////////////////
+//////////////////////////tigger è€è™æœºæŠ½å¥–//////////////////////////////////////
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
@@ -1054,14 +1055,14 @@ public class tigger : MonoBehaviour
     public Text mytext;
     public GameObject gan;
 
-    public float ganspeed = 0.1f;//Ğı×ªËÙ¶È
+    public float ganspeed = 0.1f;//æ—‹è½¬é€Ÿåº¦
 
-    private bool kaiguan = false;//¿ª¹Ø
-    private Transform temp1;//´¢´æ¿ªÊ¼×ø±ê£¬ÎªÁË²»ÖÁÓÚ¶àÀ´¼¸´ÎÖ®ºóÆ«ÒÆ
-    private float temp = 0;//×ªÈ¦È¦¼ÆÊıÆ÷
+    private bool kaiguan = false;//å¼€å…³
+    private Transform temp1;//å‚¨å­˜å¼€å§‹åæ ‡ï¼Œä¸ºäº†ä¸è‡³äºå¤šæ¥å‡ æ¬¡ä¹‹ååç§»
+    private float temp = 0;//è½¬åœˆåœˆè®¡æ•°å™¨
 
 
-    //×öÒ»¸öÊı×é£¬ĞéÄâµÄ´æ·Å³é½±×é¼ş
+    //åšä¸€ä¸ªæ•°ç»„ï¼Œè™šæ‹Ÿçš„å­˜æ”¾æŠ½å¥–ç»„ä»¶
     private string[] zuonum = { "a", "b", "c", "d", "a", "b", "c", "d" };
     private string[] zhongnum = { "a", "b", "c", "d", "a", "b", "c", "d" };
     private string[] younum = { "a", "b", "c", "d", "a", "b", "c", "d" };
@@ -1069,7 +1070,7 @@ public class tigger : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        temp1 = zuo.transform;//¼ÇÂ¼³õÊ¼×ø±ê
+        temp1 = zuo.transform;//è®°å½•åˆå§‹åæ ‡
         print(temp1.transform.rotation.ToString());
         mytext = GameObject.Find("mytext").GetComponent<Text>();
 
@@ -1082,56 +1083,56 @@ public class tigger : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            mytext.text = "ºÃ ÔË Æø ÀÏ »¢ »ú";
-            kaiguan = true;//´ò¿ª¿ª¹Ø
+            mytext.text = "å¥½ è¿ æ°” è€ è™ æœº";
+            kaiguan = true;//æ‰“å¼€å¼€å…³
 
-            //×ø±ê³õÊ¼»¯,Ä¿Ç°Ö»ÄÜĞ´ËÀ
+            //åæ ‡åˆå§‹åŒ–,ç›®å‰åªèƒ½å†™æ­»
             zuo.transform.rotation = new Quaternion(0.3f, -0.3f, 0.6f, 0.6f);
             zhong.transform.rotation = new Quaternion(0.3f, -0.3f, 0.6f, 0.6f);
             you.transform.rotation = new Quaternion(0.3f, -0.3f, 0.6f, 0.6f);
 
         }
-        //¿ª¹ØÆ÷Æô¶¯ºó¡£¡£¡£¡£
+        //å¼€å…³å™¨å¯åŠ¨åã€‚ã€‚ã€‚ã€‚
         if (kaiguan == true)
         {
-            //×öÒ»¸öĞı×ªµÄ±íÏó
+            //åšä¸€ä¸ªæ—‹è½¬çš„è¡¨è±¡
             zuo.transform.Rotate(new Vector3(0, ganspeed, 0));
             zhong.transform.Rotate(new Vector3(0, ganspeed, 0));
             you.transform.Rotate(new Vector3(0, ganspeed, 0));
             
-            temp++;//¼ÆÊıÆ÷
-            if (temp % 180 == 0)//60X3=180ÃëºóÍ£Ö¹
+            temp++;//è®¡æ•°å™¨
+            if (temp % 180 == 0)//60X3=180ç§’ååœæ­¢
             {
-                zhuan();//ÕæµÄ³é½±·½Ê½
+                zhuan();//çœŸçš„æŠ½å¥–æ–¹å¼
                 temp = 0;
-                kaiguan = false;//¿ª¹Ø¹Ø±Õ
+                kaiguan = false;//å¼€å…³å…³é—­
             }
 
         }
 
     }
-    void zhuan()//³é½±ºËĞÄ
+    void zhuan()//æŠ½å¥–æ ¸å¿ƒ
     {
-        //Èı¸öÂÖ×Ó·Ö±ğ³éÈ¡Ò»¸ö½±Æ·³¤¶ÈµÄÊıÖµ
+        //ä¸‰ä¸ªè½®å­åˆ†åˆ«æŠ½å–ä¸€ä¸ªå¥–å“é•¿åº¦çš„æ•°å€¼
         int x = Random.Range(0, 8);
         int y = Random.Range(0, 8);
         int z = Random.Range(0, 8);
 
-        //Ò»¹²8¸ö½±Ïî£¬360/8=45, ËùÒÔÒª45È¥³ËÒÔËæ»úÖµ
+        //ä¸€å…±8ä¸ªå¥–é¡¹ï¼Œ360/8=45, æ‰€ä»¥è¦45å»ä¹˜ä»¥éšæœºå€¼
         zuo.transform.Rotate(new Vector3(0, 45 * x, 0));
         zhong.transform.Rotate(new Vector3(0, 45 * y, 0));
         you.transform.Rotate(new Vector3(0, 45 * z, 0));
 
         print(zuonum[x] + ":" + zhongnum[y] + ":" + younum[z]);
 
-        //½øĞĞÅĞ¶Ï£¬Èı¸öÊı×éµÄËæ»úÖµÊÇ·ñÒ»Ñù
+        //è¿›è¡Œåˆ¤æ–­ï¼Œä¸‰ä¸ªæ•°ç»„çš„éšæœºå€¼æ˜¯å¦ä¸€æ ·
         if (zuonum[x] == zhongnum[y] && zuonum[x] == younum[z])
         {
-            mytext.text = "ºÃÔËÆø£¬¹§Ï²Äã£¡";
+            mytext.text = "å¥½è¿æ°”ï¼Œæ­å–œä½ ï¼";
         }
         else
         {
-            mytext.text = "Õæ¿ÉÏ§£¬ÔÙÀ´Ò»´Î£¡";
+            mytext.text = "çœŸå¯æƒœï¼Œå†æ¥ä¸€æ¬¡ï¼";
         }
 
     }
