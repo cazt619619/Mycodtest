@@ -1,0 +1,1142 @@
+///////bird fly 工程 脚本//////////////////////////
+
+///////////////////////////gamemanage 启动设置////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class gamemanage : MonoBehaviour {
+
+    public Transform firstBg;【设定首块背景，也就是镜头内最后一块背景的坐标位置】
+
+    public int defen=0;【设定得分类型】
+
+    public static gamemanage _intance;【设定一个静态方法】
+
+	【设定三种状态，用于判定游戏进程】
+    public static int star = 0;【开始状态】
+    public static int run = 1;【运行状态】
+    public static int stop = 2;【停止状态】
+
+    public static int zhuantai = star;【设定一个静态状态的方法，并进行初始化】
+
+    private GameObject bird;【设定一个私有字段】
+
+	【单例得用法】
+    void Awake() {
+        _intance = this;
+        bird = GameObject.FindGameObjectWithTag("Player");【将带有PLAY标题的主角赋值给私有字段】
+    }
+
+    void Update() {
+        if (zhuantai==star)【判定状态在开始时候】
+        {
+            if (Input.GetMouseButtonDown(0))【当按下鼠标左键得时候】
+            {
+                zhuantai = run;【切换成运行状态】
+
+                bird.SendMessage("huodong");【广播一个消息，主角当前状态】
+            }
+        }
+
+        if (zhuantai==stop)【判定状态在停止时候】
+        {
+            menu._instance.gameObject.SetActive(true);【让菜单显示出来】
+        }
+    }
+}
+//////////////////////////////结束/////////////////////////////////////////
+
+////////////////////////////bird【主角脚本】///////////////////////////////////////////
+
+using UnityEngine;
+using System.Collections;
+
+public class bird : MonoBehaviour
+{
+
+    public float timer = 0;【设定一个计数器】
+
+    public int framenumber = 10;【设定一个飞行速度】
+
+    public int framecount = 0;【设定启始动画帧，0,1,2】
+
+
+
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (gamemanage.zhuantai == gamemanage.run)【判定状态是否在运行中，动画效果，自动连续循环播放】
+        {
+            timer += Time.deltaTime;【计数器按帧数自增】
+
+            if (timer >= 1.0f / framenumber)【当计数器启动后】
+            {
+                framecount++;【动画帧数开始自增】
+
+                timer -= 1.0f / framenumber;【计数器开始归零】
+
+                int frameindex = framecount % 3;【设一个整数的变量，得到动画帧得值被3求余后的值，0,1,2】
+
+                this.GetComponent<MeshRenderer>().material.SetTextureOffset("_MainTex", new Vector2(0.333f * frameindex, 0));【这是5.0得写法，geticomponet<组件名字>().材质，贴图，(主贴图名，2纬坐标，移动距离，)来切换UNITY中主角贴图的变换】
+            }
+        }
+
+        if (gamemanage.zhuantai == gamemanage.run)【如果状态在运行中，飞行效果，按一下鼠标上升一下】
+        {
+            if (Input.GetMouseButton(0))【当按下鼠标左键得时候】
+            {
+                Vector3 val = this.GetComponent<Rigidbody>().velocity;【三维向量申明一个变量，赋予主角支线前进的速度】
+
+                this.GetComponent<AudioSource>().Play();【5.0得写法，调用声音组建播放】
+
+                this.GetComponent<Rigidbody>().velocity = new Vector3(val.x, 5, val.z);【5.0写法，重新赋予刚体速度，用一个新的三维向量，将横向速度变为纵向速度，控制角色的高低】
+            }
+        }
+    }
+
+    public void huodong()【公共方法，主角状态，开始时使用】
+    {
+        this.GetComponent<Rigidbody>().useGravity = true;【通过刚体，开启重力控制】
+   
+        this.GetComponent<Rigidbody>().velocity = new Vector3(2, 0, 0);【x方向移动速度，刚体加上力】
+
+    }
+}
+//////////////////////////////////////////////结束//////////////////////////////////
+
+////////////////////////////////////移动检测，画面自动增长////////////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class yidongjiance : MonoBehaviour
+{
+    
+    public Transform currentBg;【申明一个要用的背景】
+
+    public pipe pipe1;【申明要变换的柱子】
+
+    public pipe pipe2;【申明要变换的柱子】
+
+    public void OnTriggerEnter (Collider other)【碰撞检测标准格式，进入时触发】
+    {
+
+        print("22222");【验证是否碰撞，输出检测】
+
+        if (other.tag == "Player")【监测是否是主角触发了碰撞】
+        {
+            Transform firstbg = gamemanage._intance.firstBg;【得到之前设置的第一个背景的坐标值】
+
+            currentBg.position = new Vector3(firstbg.position.x + 10, currentBg.position.y, currentBg.position.z);【给当前背景赋给一个新的坐标，即移动到最后一个背景的后面】
+
+            gamemanage._intance.firstBg = currentBg;【将新移动的画面重新申明为最后一个画面】
+
+            pipe1.random_Y();【柱子调用PIPE方法，随机进行布置】
+
+            pipe2.random_Y();【柱子调用PIPE方法，随机进行布置】
+        }
+    }
+}
+///////////////////////////////////////////////结束//////////////////////////////////
+
+/////////////////////////////////////pipe柱子的随机排列方式，得分监测///////////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class pipe : MonoBehaviour
+{
+
+    // Use this for initialization
+    void Start()
+    {
+        random_Y();【循环调用一个方法】
+    }
+
+    
+    public void random_Y()【申明一个新的随机方法】
+    {
+        float num = Random.Range(0.1f, -0.2f);【随机数生成，种子值（最小值，最大值）】
+
+        this.transform.localPosition = new Vector3(this.transform.localPosition.x, num, this.transform.localPosition.z);【重设本体当前位置，这里只是变动Y，】
+    }
+
+    void OnTriggerExit(Collider other) {【离开时触发】
+        
+	if (other.tag=="Player")【监测是否是主角触发了碰撞】
+        {
+            this.GetComponent<AudioSource>().Play();【播放一个声音】
+
+            gamemanage._intance.defen++;【记分器开始自增】
+
+ 	    menu._instance.updatescore(gamemanage._intance.defen);【单例方法调用，将得分送到UI中去】
+        }
+    }
+
+    void OnGUI() {【GUI方法】
+
+        GUILayout.Label("得分" + gamemanage._intance.defen);【默认在画面左上角画出一个标签，显示得分】
+    }
+}
+///////////////////////////////////////////////////结束///////////////////////////////////////////
+
+////////////////////////////////////////////////////镜头跟随主角移动/////////////////////////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class fllowbird : MonoBehaviour {
+    
+	private GameObject bird;【私有对象声明，变量bird】
+
+   	private Transform zuobiao;【私有坐标申明】
+
+	// Use this for initialization
+	void Start () {
+
+        bird = GameObject.FindGameObjectWithTag("Player");【通过Player标签将变量进行关联】
+
+        zuobiao = bird.transform;【主角形态也赋值给私有函数】
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+        Vector3 birdpos = zuobiao.position;【三维向量的变量被主角坐标赋值】
+
+        float y = birdpos.y - 2.14f;【通过主角移动的距离，得到Y轴移动的距离范围】
+
+        if (y>1.22f)【判定超过背景上限的时候，就使用上限】
+        {
+            y = 1.22f;
+        }
+
+        if (y<-1.22f)【判定超过背景下限的时候，就使用下限】
+        {
+            y = -1.22f;
+        }
+
+        this.transform.position = new Vector3(birdpos.x+6.65f,y,-9f);【给当前镜头赋给一个新的坐标】
+
+	}
+}
+////////////////////////////////////////////////////结束////////////////////////////////////
+
+////////////////////////////////////////失败判定///////////////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class birdstop : MonoBehaviour {
+
+    public AudioSource hit;【申明碰撞声音】
+
+    public AudioSource die;【申明死亡声音】
+
+   void OnCollisionEnter(Collision other)【这个是刚体碰撞的标准写法】
+    {
+        print("33333");
+
+        if (other.gameObject.tag=="Player")【判断是否是主角发生的碰撞】
+        {
+            hit.Play();【播放声音】
+
+            gamemanage.zhuantai = gamemanage.stop;【当主角发生碰撞后，改变游戏状态来展现主角死亡】
+
+            die.Play();【播放声音】
+        }
+    }
+	
+}
+////////////////////////////////////////结束////////////////////////////////
+
+//////////////////////////////////////菜单///////////////////////////////
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;【TEXT方法调用】
+
+public class menu : MonoBehaviour {
+    public static menu _instance;【申明一个方法】
+
+   public Text score;【申明一个UI】
+
+    public Text best;【申明另一个显示UI】
+
+    
+    void Awake() {【单例】
+        _instance = this;
+
+        this.gameObject.SetActive(false);【不显示UI，menu】
+    }
+
+    public void updatescore(float newscore) {【记分牌改变】
+
+        float zuigao = PlayerPrefs.GetFloat("score",0);【最高分等于得分】
+
+        if (newscore>zuigao)【新分数是否大于最高分】
+        {
+            zuigao = newscore;【最高分重新赋值】
+        }
+
+        PlayerPrefs.SetFloat("score",zuigao);【记录最高得分】
+
+        score.text = newscore.ToString();【以字符串形式输出】
+
+        best.text = zuigao.ToString();【以字符串形式输出】
+    }
+
+	public void onClick() {【注册一个Onclick方法，绑定到BUTTON得ONclick上】
+
+	        Application.LoadLevel(0);【重载0层场景】
+
+	        gamemanage.zhuantai = gamemanage.star;【重设游戏状态为开始状态】
+	    }
+
+}
+///////////////////////////////////////////////结束/////////////////////////
+
+
+
+
+////////////////////////////TEST 方块下得文字变换，在CUBE下加一个3D text/////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class xuanzhuan : MonoBehaviour {
+
+    public int num = 5;【旋转速度】
+    public int num1 = 0;【文字变量】
+
+	void Update () {
+        transform.Rotate(new Vector3(0,num,0));【方块旋转】
+        num1++;
+        GameObject.Find("New Text").GetComponent<TextMesh>().text = num1.ToString();【找到方块下得3Dtext名字，然后再TEXT中输入变量，需要转换成字符串】
+	}
+}
+
+/////////////////////////////////test大转盘/////////////
+using UnityEngine;
+using System.Collections;
+
+public class star : MonoBehaviour
+{
+    public float speed = 0f;【初始速度】
+    private int num = 1;【设定一个数字开关】
+    private float i = 0;【缓慢减速的值】
+   
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))【第一次按下空格的时候】
+        {
+            num=2;【开关重新赋值】
+        }
+        
+        if (num % 2 == 0)【判定开关是否打开，同值求余是否为0】
+        {
+            speed = Random.Range(10f, 20f); 【速度值随机赋值，10-20之间】
+            i = Random.Range(0.01f, 0.1f);【减速值赋值，0.01-0.1之间】
+        }   
+        
+        speed -= i;【速度开始减少】
+        print("i"+i);
+        if (speed<=0)【当速度小于等于0的时候，速度值归0】
+        {
+            speed = 0;
+        }
+
+        this.transform.Rotate(new Vector3(0, speed, 0));【物体开始按速度值在Y轴旋转】
+        num = 1;【开关重置，等待在按一次】
+    }
+}
+//////////////////////////////////test  主界面////////////////////////////////
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;//用于切换场景
+
+public class dian : MonoBehaviour {
+
+    public GameObject image;
+
+	// Use this for initialization
+	void Start () {
+	
+    this.GetComponent<Text>().enabled = false;//隐藏文字
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+        if (image.transform.position.z==90)//image移动到位置后
+        {
+            print(22222);
+            this.GetComponent<Text>().enabled = true;//显示文字
+
+            if (Input.GetMouseButtonDown(0))//按下鼠标
+            {
+                SceneManager.LoadScene("bigpan");//切换指定场景，在设置中将场景都添加上
+            }
+        }
+	}
+}
+////////////////////////////////camera 坦克大战，镜头跟随主角////////////////////////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class camera : MonoBehaviour {
+
+    private GameObject tank;【申明一个目标变量】
+
+    private Transform weizhi;【申明一个位置变量】
+
+	// Use this for initialization
+	void Start () {
+        tank = GameObject.FindGameObjectWithTag("Player");【变量查找tag叫PLAYER的物体】
+        weizhi = tank.transform;【得到目标的位置】
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        
+        this.transform.position =new Vector3( weizhi.position.x+0.7f,33.2f,weizhi.position.z-31.4f);【给当前镜头赋给一个新的坐标，目标坐标值+偏移量】
+        
+	}
+}
+
+///////////////////////////////zidan 坦克大战 炮弹/////////////////////////////////////////////
+
+using UnityEngine;
+using System.Collections;
+
+public class zidan : MonoBehaviour {
+    public GameObject baozhaxiaoguo;【添加一个爆炸效果对象】
+
+    public AudioClip auido;【添加一个声音对象】
+
+    public void OnTriggerEnter(Collider other) 【创建一个新的碰撞方法】
+{
+        GameObject.Instantiate(baozhaxiaoguo, transform.position, transform.rotation);【爆炸效果进行实例化，用当前位置】
+
+        GameObject.Destroy(this.gameObject);【销毁当前对象】
+
+        AudioSource.PlayClipAtPoint(auido,transform.position);【播放声音效果，声音对象，在当前位置】
+
+        if (other.tag=="Enemy"||other.tag=="Player")【判定击中的目标tag类别】
+        {
+            other.SendMessage("shanghai");【广播一个伤害方法】
+        }
+    }
+}
+
+//////////////////////////////////////attick 坦克大战  攻击方式////////////////////////////////////////////
+
+using UnityEngine;
+using System.Collections;
+
+public class attick : MonoBehaviour {
+
+    public GameObject paodan;【添加一个炮弹物体】
+
+    private Transform weizhi;【申明一个位置】
+
+    public float shesu = 10;【初始化射速】
+
+    public KeyCode kaihuo = KeyCode.Space;【设定开火键为空格】
+
+    public AudioClip audio;【添加一个声音】
+
+	// Use this for initialization
+	void Start () {
+        weizhi = transform.Find("paodan");【位置得到炮弹的坐标】
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        if (Input.GetKeyDown(kaihuo))【当按下空格键的时候】
+        {
+            AudioSource.PlayClipAtPoint(audio,transform.position);【播放声音】
+
+         GameObject go =   GameObject.Instantiate(paodan,weizhi.position,weizhi.rotation) as GameObject;【申明一个新的物体变量，将实例化的炮弹位置坐标赋予他】
+
+         go.GetComponent<Rigidbody>().velocity = go.transform.forward * shesu;【炮弹刚体的飞行，相当于炮弹直线方向X速度】
+        }
+	}
+}
+
+///////////////////////////////move坦克大战 主角移动 //////////////////////////////////////
+
+using UnityEngine;
+using System.Collections;
+
+public class move : MonoBehaviour
+{
+    public float speed = 5;【初始速度】
+
+    private Rigidbody gangti;【碰撞刚体变量】
+
+    public float xuanzhuan = 15;【旋转角度值】
+
+    public AudioClip moveaudio;【移动声音】
+
+    public AudioClip stopaudio;【停止声音】
+
+    private AudioSource audio;【声音组建变量】
+
+    // Use this for initialization
+    void Start()
+    {
+        gangti = this.GetComponent<Rigidbody>();【变量赋值，当前物体的刚体组件】
+
+        audio= this.GetComponent<AudioSource>();【声音组件赋值】
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float v = Input.GetAxis("Vertical");【标准写法，垂直移动，默认ws】
+        gangti.velocity = transform.forward * v * speed;【移动速度】
+
+        float h = Input.GetAxis("Horizontal");【标准写法，水平移动，默认ad】
+        gangti.angularVelocity = transform.up * h * xuanzhuan;【旋转速度】
+
+        if (Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1)【判断WASD是否按下】
+        {
+            audio.clip = moveaudio;【播放移动声音】
+            if (audio.isPlaying==false)【判断声音组建】
+            {
+                audio.Play();【播放等待声音】
+            }
+         }
+        else {
+            audio.clip = stopaudio;【】
+            if (audio.isPlaying == false)【】
+            {
+                audio.Play();【】
+            }
+           
+        }
+
+    }
+}
+
+//////////////////////////////////xiaoguoxiaohui 坦克大战 爆炸效果///////////////////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class xiaoguoxiaohui : MonoBehaviour {
+
+    public float time;【设个值】
+
+	// Use this for initialization
+	void Start () {
+        Destroy(this.gameObject,time);【销毁当前目标，及时间】
+	}
+}
+
+/////////////////////////////////life 坦克大战 生命值////////////////////////////////////
+
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;【调用UI】
+
+public class life : MonoBehaviour {
+
+    public int hp = 100;【给目标赋值血量】
+
+    public GameObject siwangdonghua;【调用一个死亡动画】
+
+    public AudioClip audio;【调用一个声音】
+
+    public Slider xuetiao;【调用一个UI血条】
+
+    private int hptotal;【UI血条变量】
+
+	// Use this for initialization
+	void Start () {
+        hptotal = hp;【赋值总血量】
+	}
+
+    void shanghai()【伤害方法】
+    {
+        hp -= Random.Range(10,20);【HP减少随机一个10-20的值】
+
+        xuetiao.value =(float) hp / hptotal;【UI血条的展示，收到伤害后的HP除以总血量的比例值，0-1之间的小数】
+
+        if (hp<=0)【血量是否为0】
+        {
+            AudioSource.PlayClipAtPoint(audio,transform.position);【播发死亡声音】
+
+            GameObject.Instantiate(siwangdonghua,transform.position + Vector3.up,transform.rotation);【实例化爆炸效果，位置在当前目标的上方】
+
+            this.gameObject.SetActive(false);【隐藏当前物体】
+
+            //GameObject.Destroy(this.gameObject);【销毁当前物体，如果销毁镜头位置参数为空，会报错】
+        }
+    }
+}
+
+/////////////////////////////////////////gamemaage 拾荒者控制台///////////////////////////////////////////////
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+
+public class gamemanage : MonoBehaviour
+{
+
+
+    public int leave = 1;【地图等级】
+
+    public int food = 100;【默认食物数】
+
+    public List<enemy> enemylist;【敌人存放列表】
+
+    private static gamemanage _instance;【单例实现】
+
+    private bool sleepstep = true;【移动开关】
+
+    private Text foodtext;【食物文字】
+
+    private Text overtext;【消耗文字】
+
+    private Image dayimage;【背景图】
+
+    private Text daytext;【关卡文字】
+
+    private mapmanage mapcushihua;【地图初始化类】
+
+    public static gamemanage Instance【单例实现】
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    void Awake()【初始方法】
+    {
+        _instance = this;
+        DontDestroyOnLoad(gameObject);【重置地图后保留自身不销毁，用来保留上一场景的得分】
+        cushihua();【所有元素进行初始化方法】
+    }
+
+    void cushihua()【初始化方法】
+    {
+        mapcushihua=GetComponent<mapmanage>();【得到新写的地图类】
+        mapcushihua.MapStar();【调用地图类生成方法】
+
+        foodtext = GameObject.Find("foodtext").GetComponent<Text>();【文字显示】
+        updatefoodtext(0);
+        overtext=GameObject.Find("overtext").GetComponent<Text>();
+        overtext.enabled = false;
+        
+        dayimage=GameObject.Find("dayimage").GetComponent<Image>();
+        
+        daytext=GameObject.Find("daytext").GetComponent<Text>();
+        daytext.text = "Day " + leave;
+       Invoke("Hidebk",1.0f);【请求一个方法，1秒后执行，背景图片消失】
+        
+
+        enemylist.Clear();【清空敌人列表】
+    }
+
+    void updatefoodtext(int foodnum) 【生命监测方法，显示食物数】
+{
+        if (foodnum == 0)
+        {
+            foodtext.text = "Food : " + food;【总数的显示】
+        }
+        else {【得到和消耗食物数的显示】
+            string str = "";
+            if (foodnum < 0)
+            {
+                str = foodnum.ToString();
+            }
+            else {
+                str = "+" + foodnum;
+            }
+            foodtext.text =str+" "+"Food : " + food;
+        }
+        
+    }
+
+    public void jianshaoshiwu(int num)【消耗食物的方法】
+    {
+        food -= num;【总数自减】
+        updatefoodtext(-num);【减少的数，以负数形式传递到显示方法里】
+        if (food <=0)
+        {
+            overtext.enabled = true;【为0就显示出game over】
+        }
+    }
+
+    public void zhenjiashiwu(int num)【获取食物的方法】
+    {
+        food += num;【自增】
+        updatefoodtext(num);【增加的数，以正数形式传递到显示方法里】
+    }
+
+    public void EnemyMove()【敌人移动方法】
+    {
+        if (sleepstep == true)【判定移动开关是否打开】
+        {
+            sleepstep = false;【重设开关】
+        }
+        else
+        {
+            foreach (var enemy in enemylist)【历遍敌人列表，每一个敌人进行移动】
+            {
+                enemy.move();【敌人类下的移动方法】
+            }
+            sleepstep = true;【重设开关】
+        }
+    }
+    public void NextLevel() 【下一关生成方法】
+{
+        Application.LoadLevel(0);【重载场景】
+        leave++;【等级数自加】
+        OnLevelWasLoaded();【开始读取方法】
+    }
+    void OnLevelWasLoaded() 【开始读取方法】
+{        
+        cushihua();【调用初始化方法】
+    }
+
+    void Hidebk() 【遮挡图片显示方法】
+{
+        dayimage.enabled=false;【图片隐藏】
+        daytext.enabled = false;【文字隐藏】
+    }
+}
+//////////////////////////////////////////mapmange 地图生成///////////////////////////////////////////////////
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+public class mapmanage : MonoBehaviour
+{
+
+    public GameObject[] liba;【围边的模型组】
+    public GameObject[] di;【地板的模型组】
+    public GameObject[] qiang;
+    public GameObject[] food;
+    public GameObject[] enemy;
+    public GameObject exit;
+
+    private int lie = 10;【地图的列数 10】
+    private int hang = 10;【地图的行数 10】
+
+    private Transform mapbao;【地图包存放所有的模型】
+
+    private List<Vector2> zuobiaobiao = new List<Vector2>();【列表存放内圈的地图平面坐标】
+
+    private gamemanage gamemanage;【调用gamemanage类】
+   
+   public void MapStar()【地图生成方法】
+    {
+        gamemanage = this.GetComponent<gamemanage>();
+        mapbao = new GameObject("map").transform;//新建立一个MAP的对象坐标，用来存放所有地图生成的元素
+        
+	//创建地图
+        for (int x = 0; x < lie; x++)【列1-10逐个创建】
+        {
+            for (int y = 0; y < hang; y++)【创建行】
+            {
+                if (x == 0 || y == 0 || x == lie - 1 || y == hang - 1)【最外围一圈】
+                {
+                    int num = Random.Range(0, liba.Length);【篱笆数组的长度，随机抽取一个数】
+                    GameObject go = GameObject.Instantiate(liba[num], new Vector3(x, y, 0), Quaternion.identity) as GameObject;【实列化围墙，在xy坐标的位置，自身不旋转】
+                    go.transform.SetParent(mapbao);//设置父坐标【放入地图包】
+                }
+                else
+                {
+                    int num = Random.Range(0, di.Length);【抽取地板数】
+                    GameObject go = GameObject.Instantiate(di[num], new Vector3(x, y, 0), Quaternion.identity) as GameObject;【实例化地板】
+                    go.transform.SetParent(mapbao);
+                }
+            }
+        }
+
+        //获得内城全部坐标
+        zuobiaobiao.Clear();【清楚坐标表】
+        for (int x = 2; x < lie - 2; x++)【内圈列】
+        {
+            for (int y = 2; y < hang - 2; y++)【内圈行】
+            {
+                zuobiaobiao.Add(new Vector2(x, y));【将内圈坐标放入坐标列表】
+            }
+        }
+
+        //创建障碍
+        int jishu = gamemanage.leave;【计数器，应用关卡等级】
+        if (jishu >=18)【18关之后】
+        {
+            jishu = 18;【计数】
+        }
+        int qiangnum = Random.Range(2, 8);【墙的随机数】
+        
+        ShenChengWuTi(qiangnum, qiang);【生成物体方法，数字和数组】
+
+        //创建食物2-leave*2
+        int foodnum = Random.Range(1,jishu+1);
+        ShenChengWuTi(foodnum, food);
+
+        //创建敌人
+        int enemynum = jishu;
+        ShenChengWuTi(enemynum, enemy);
+
+        //创建退出区
+       GameObject go1= GameObject.Instantiate(exit, new Vector2(lie - 2, hang - 2), Quaternion.identity)as GameObject;
+【实例化退出区域，在8-8地区】
+       go1.transform.SetParent(mapbao);【放入地图包】
+    }
+       
+    private Vector2 SuiJiZuoBiao() 【内圈随机坐标生成方法】
+    {
+        int listnum = Random.Range(0, zuobiaobiao.Count);【随机坐标值】
+
+        Vector2 pos = zuobiaobiao[listnum];【从列表中取出坐标，申明一个POS坐标赋值】
+
+        zuobiaobiao.RemoveAt(listnum);【在坐标表中移除抽取的坐标】
+
+        return pos;【返回一个坐标值】
+    }
+
+    private void ShenChengWuTi(int num,GameObject[] temp)【生成物体的方法，输入数字，项目数组】
+    {
+        for (int i = 0; i < num; i++)【得到的值，一个个生成】
+        {
+            Vector2 pos = SuiJiZuoBiao();【坐标赋值】
+
+            int num2 = Random.Range(0, temp.Length);【随机选取那个物体】
+
+            GameObject go = GameObject.Instantiate(temp[num2], pos, Quaternion.identity) as GameObject;【实例化】
+
+            go.transform.SetParent(mapbao);【放入地图包】
+        }
+    }
+}
+
+/////////////////////////////////enemy 敌人生成/////////////////////////////////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class enemy : MonoBehaviour
+{
+    private Vector2 cushiweizhi;【出生位置坐标】
+    private Transform player;【玩家位置】
+    private Rigidbody2D gangti;【得到2D刚体】
+    public float smoothing = 3;【平滑移动】
+
+    public int gongjiqiangdu = 10;【攻击速度】
+    private BoxCollider2D penzhuang;【得到2D 碰撞盒】
+    private Animator donghua;【动画播放】
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        cushiweizhi = transform.position;
+        gangti = GetComponent<Rigidbody2D>();
+        penzhuang =GetComponent<BoxCollider2D>();
+        donghua = GetComponent<Animator>();
+        gamemanage.Instance.enemylist.Add(this);【将敌人放入，gamemanage的敌人表】
+    }
+
+    void Update()
+    {
+        gangti.MovePosition(Vector2.Lerp(transform.position, cushiweizhi, smoothing * Time.deltaTime));【移动方式】
+    }
+
+    public void move()【移动方法】
+    {
+        Vector2 offset = player.position - transform.position;
+        if (offset.magnitude < 1.1f)
+        {
+            //攻击
+            donghua.SetTrigger("gongji");
+            player.SendMessage("diaoxue",gongjiqiangdu);
+        }
+        else 
+        {
+            //控制移动
+            float x = 0, y = 0;
+            if (Mathf.Abs(offset.y) > Mathf.Abs(offset.x))
+            {
+                if (offset.y < 0)
+                {
+                    y = -1;
+                }
+                else
+                {
+                    y = 1;
+                }
+            }
+            else
+            {
+                if (offset.x > 0)
+                {
+                    x = 1;
+                }
+                else
+                {
+                    x = -1;
+                }
+            }
+            penzhuang.enabled = false;
+            RaycastHit2D hit = Physics2D.Linecast(cushiweizhi, cushiweizhi + new Vector2(x, y));
+            penzhuang.enabled = true;
+            if (hit.transform == null||hit.collider.tag=="enemy")
+            {
+                cushiweizhi += new Vector2(x, y);
+            }
+            else {
+                if (hit.collider.tag=="food1"||hit.collider.tag=="food2")
+                {
+                    cushiweizhi += new Vector2(x, y);
+                }
+            }
+            
+        }
+    }
+}
+////////////////////////////////PLAY 玩家控制//////////////////////////////////////
+using UnityEngine;
+using System.Collections;
+
+public class player : MonoBehaviour
+{
+    public float smoothing = 1;
+    public float restime = 1;
+    public float restimer = 0;
+    private Vector2 cushiweizhi = new Vector2(1, 1);【出身位置】
+    private Rigidbody2D yidong;【移动刚体】
+
+    private BoxCollider2D pengzhang;【碰撞盒】
+
+    private Animator donghua;【三种状态动画】
+    // Use this for initialization
+    void Start()
+    {【初始化】
+        yidong = GetComponent<Rigidbody2D>();
+        pengzhang = GetComponent<BoxCollider2D>();
+        donghua = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        yidong.MovePosition(Vector2.Lerp(transform.position, cushiweizhi, smoothing * Time.deltaTime));【平滑移动】
+       
+        if (gamemanage.Instance.food <= 0)【食物是否还有】
+        {
+            return;【跳出】
+        }
+
+
+        restimer += Time.deltaTime;
+        if (restimer < restime)
+        {
+            return;
+        }
+
+        float h = Input.GetAxisRaw("Horizontal");【平移】
+        float v = Input.GetAxisRaw("Vertical");【竖移】
+
+        if (h > 0)
+        {
+            v = 0;
+        }
+
+        if (h != 0 || v != 0)
+        {
+
+            pengzhang.enabled = false;
+            RaycastHit2D hit = Physics2D.Linecast(cushiweizhi, cushiweizhi + new Vector2(h, v));
+            pengzhang.enabled = true;
+
+            gamemanage.Instance.jianshaoshiwu(1);
+            if (hit.transform == null)
+            {
+                cushiweizhi += new Vector2(h, v);
+                
+            }
+            else {
+                switch (hit.collider.tag)
+                {
+                    case "liba":
+                        break;
+                    case "zhanai":
+                        donghua.SetTrigger("gongji");
+                        hit.collider.SendMessage("gongjiqiang");
+                        break;
+                    case "food1":
+                        gamemanage.Instance.zhenjiashiwu(20);
+                        cushiweizhi += new Vector2(h, v);
+                        Destroy(hit.transform.gameObject);
+                        break;
+                    case "food2":
+                        gamemanage.Instance.zhenjiashiwu(10);
+                        cushiweizhi += new Vector2(h, v);
+                        Destroy(hit.transform.gameObject);
+                        break;
+                    case "enemy":
+                        cushiweizhi += new Vector2(h, v);
+                        break;
+                    case "exit":
+                       
+                        gamemanage.Instance.NextLevel();
+                        break;
+                }
+            }
+            gamemanage.Instance.EnemyMove();
+            restimer = 0;
+        }
+        
+    }
+
+    public void diaoxue(int gongjiqiangdu)
+    {
+        gamemanage.Instance.jianshaoshiwu(gongjiqiangdu);
+        donghua.SetTrigger("shougongji");
+    }
+}
+///////////////////////////////可破坏墙壁的血量设置/////////////////////////////////////////////////////////
+
+using UnityEngine;
+using System.Collections;
+
+public class qiang : MonoBehaviour
+{
+    public int hp = 2;
+
+    public Sprite gongjixiaoguo;
+    public void gongjiqiang()
+    {
+        hp -= 1;
+        GetComponent<SpriteRenderer>().sprite = gongjixiaoguo;
+        if (hp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+}
+/////////////////////////////////////重载关卡////////////////////////////////////////////////////
+
+using UnityEngine;
+using System.Collections;
+
+public class LOAD : MonoBehaviour {
+
+    public GameObject gamemaage;
+
+    void Awake() {
+        if (gamemanage.Instance==null)
+        {
+            GameObject.Instantiate(gamemaage);
+        }
+    }
+	
+}
+//////////////////////////tigger 老虎机抽奖//////////////////////////////////////
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+
+public class tigger : MonoBehaviour
+{
+
+    public GameObject zuo;
+    public GameObject zhong;
+    public GameObject you;
+    public Text mytext;
+    public GameObject gan;
+
+    public float ganspeed = 0.1f;//旋转速度
+
+    private bool kaiguan = false;//开关
+    private Transform temp1;//储存开始坐标，为了不至于多来几次之后偏移
+    private float temp = 0;//转圈圈计数器
+
+
+    //做一个数组，虚拟的存放抽奖组件
+    private string[] zuonum = { "a", "b", "c", "d", "a", "b", "c", "d" };
+    private string[] zhongnum = { "a", "b", "c", "d", "a", "b", "c", "d" };
+    private string[] younum = { "a", "b", "c", "d", "a", "b", "c", "d" };
+
+    // Use this for initialization
+    void Start()
+    {
+        temp1 = zuo.transform;//记录初始坐标
+        print(temp1.transform.rotation.ToString());
+        mytext = GameObject.Find("mytext").GetComponent<Text>();
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            mytext.text = "好 运 气 老 虎 机";
+            kaiguan = true;//打开开关
+
+            //坐标初始化,目前只能写死
+            zuo.transform.rotation = new Quaternion(0.3f, -0.3f, 0.6f, 0.6f);
+            zhong.transform.rotation = new Quaternion(0.3f, -0.3f, 0.6f, 0.6f);
+            you.transform.rotation = new Quaternion(0.3f, -0.3f, 0.6f, 0.6f);
+
+        }
+        //开关器启动后。。。。
+        if (kaiguan == true)
+        {
+            //做一个旋转的表象
+            zuo.transform.Rotate(new Vector3(0, ganspeed, 0));
+            zhong.transform.Rotate(new Vector3(0, ganspeed, 0));
+            you.transform.Rotate(new Vector3(0, ganspeed, 0));
+            
+            temp++;//计数器
+            if (temp % 180 == 0)//60X3=180秒后停止
+            {
+                zhuan();//真的抽奖方式
+                temp = 0;
+                kaiguan = false;//开关关闭
+            }
+
+        }
+
+    }
+    void zhuan()//抽奖核心
+    {
+        //三个轮子分别抽取一个奖品长度的数值
+        int x = Random.Range(0, 8);
+        int y = Random.Range(0, 8);
+        int z = Random.Range(0, 8);
+
+        //一共8个奖项，360/8=45, 所以要45去乘以随机值
+        zuo.transform.Rotate(new Vector3(0, 45 * x, 0));
+        zhong.transform.Rotate(new Vector3(0, 45 * y, 0));
+        you.transform.Rotate(new Vector3(0, 45 * z, 0));
+
+        print(zuonum[x] + ":" + zhongnum[y] + ":" + younum[z]);
+
+        //进行判断，三个数组的随机值是否一样
+        if (zuonum[x] == zhongnum[y] && zuonum[x] == younum[z])
+        {
+            mytext.text = "好运气，恭喜你！";
+        }
+        else
+        {
+            mytext.text = "真可惜，再来一次！";
+        }
+
+    }
+
+}
+
+//////////////////////////////////////////////////////////////////////////////
